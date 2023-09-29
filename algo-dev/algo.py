@@ -1,46 +1,31 @@
-#Purpose is to run a simulation and understand how different parameters will affect PID system
-#based on: https://www.youtube.com/watch?v=ZMI_kpNUgJM and #https://github.com/Jmack66/TVC-Sim/blob/main/Graphics.py
+#purpose is to run simulation and understand how different parameters will affect PID system
+#based on: https://www.youtube.com/watch?v=ZMI_kpNUgJM
 
 import control as ct
 import matplotlib.pyplot as plt
-import turtle
-import time
 import numpy as np
 from matplotlib.animation import FuncAnimation
 
 #GLOBAL PARAMS
-TIMER = 0
+SEC = 20
 TIME_STEP = 0.001
-SETPOINT = 10
-SIM_TIME = 100
-INITIAL_X = 20
+ITER = int(SEC * (1/TIME_STEP))
+SETPOINT = 0.5
+INITIAL_X = 0
 INITIAL_VX = 0
 MASS = 1
 LENGTH = 7
 HEIGHT = 24
-HYPOTENUSE = np.sqrt(np.power(7,2) + np.power(24,2))
+HYPOTENUSE = np.sqrt(np.power(LENGTH,2) + np.power(HEIGHT,2))
 THETA = np.arctan(HEIGHT/LENGTH)
 G = -9.81
+KP = 5
+KI = 1.5
+KD = 2
 
-class Simulation():
-    def __init__(self):
-        self.screen = turtle.Screen()
-        self.screen.setup(800,800)
-        self.marker = turtle.Turtle()
-        self.marker.color('red')
-        self.marker.penup()             #disable drawing on canvas
-        self.marker.left(180)           #turn left by 180 degrees
-        self.marker.goto(15,SETPOINT)   #move to specified location on canvas
-        self.sim = True
-        self.timer = 0
-
+#represents physics of a ball on ramp, pushed by fan
 class Ball():
     def __init__(self):
-        #self.marker = turtle.Turtle()
-        #self.marker.shape('circle')
-        #self.marker.color('blue')
-        #self.marker.goto(0,0)
-        #self.marker.speed(0)
         self.ddx = G * np.sin(THETA)
         self.dx = INITIAL_VX
         self.x = INITIAL_X
@@ -76,57 +61,77 @@ class PID():
         self.error_last = self.error                                        #update last error after done using it
 
         #use gains to compute the output control signals
+        #P (proportional): if error increases, output increases; if error decreases, output decreases
+        #I (integral): if error persists over time, the integral term increases the control output
+        #D (derivative): reduces control output as error approaches the setpoint; if error is stable or decreasing, minimal effect on control output
         self.output = self.kp * self.error + self.ki * self.integral_error + self.kd * self.derivative_error
         return self.output
 
-#main
-#while(timer < 5):
-    #sim = Simulation()
-    #ball = Ball()
-    #time.sleep(2)
-    #timer += 1
+#simulation
+pid = PID(KP,KI,KD,SETPOINT)
 ball = Ball()
-xVals = []
+ballPos = []
 xCoord = []
 yCoord = []
-for i in range(10000):
-    ball.set_ddx(20)
+fanForceHist = []
+for i in range(ITER):
+    fanForce = pid.compute(ball.get_x())
+    ballPos.append(ball.get_x())
+    ball.set_ddx(fanForce)
     ball.set_dx()
     ball.set_x()
-    #print(ball.get_dx())
     xCoord.append(np.cos(THETA)*ball.get_x())
     yCoord.append(np.sin(THETA)*ball.get_x())
-    print(str(xCoord[i]) + ', ' + str(yCoord[i]))
-#plt.scatter(xCoord,yCoord)
-#plt.show()
-print('done')
-
-
-
-
+    fanForceHist.append(fanForce)
+    #print(str(xCoord[i]) + ', ' + str(yCoord[i]))
 
 #visualization
 fig, ax = plt.subplots()
 line, = ax.plot([], [], lw=2)
-
+point, = ax.plot([], [], 'o', lw=2)
+target, = ax.plot([], [], 'o', lw=2)
+txt = ax.annotate("",xy=(0,0), xytext=(20,20))
 ax.set_xlim(min(xCoord) - 10, max(xCoord) + 10)
 ax.set_ylim(min(yCoord) - 10, max(yCoord) + 10)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_title('(X,Y) Position w/ Force Applied')
+ax.grid(True)
 
-# Initialization function
+#initialization function
 def init():
     line.set_data([], [])
-    return line,
+    point.set_data([], [])
+    target.set_data(np.cos(THETA)*SETPOINT, SETPOINT)
+    txt.set_text("")
+    return line, point, txt
 
-# Animation function
+#animation function
 def animate(frame):
     x = xCoord[:frame]
     y = yCoord[:frame]
-    line.set_data(x, y)
-    #print(frame)
-    return line,
+    line.set_data(x,y)
+    if (frame > 0):
+        point.set_data(x[-1],y[-1])
+        txt.set_text('force applied: ' + str(round(fanForceHist[frame-1],1)) +
+                      ' N\nforce gravity: ' + str(round(np.sin(THETA) * MASS * G,1)))
+        txt.set_position((-8, 0))
+    return line, point, txt
 
-# Create the animation
-animation = FuncAnimation(fig, animate, init_func=init, frames=len(xCoord), interval=0.00000001, blit=True)
+#create animation
+print('starting simulation: ' + str(ITER*TIME_STEP) + ' (s) duration')
+animation = FuncAnimation(fig, animate, init_func=init, frames=len(xCoord), interval=0.01*TIME_STEP, blit=True)
+plt.show()
 
-# Show the animation (you can also save it to a file)
+#plot path traveled along the ramp
+plt.plot(np.arange(len(ballPos))*TIME_STEP, ballPos)
+plt.xlabel('Time (s)')
+plt.ylabel('Position')
+plt.grid()
+plt.show()
+
+#plot force applied by fan
+plt.hist(fanForceHist[1:], bins=30, edgecolor='black')
+plt.xlabel('Force Applied (N)')
+plt.ylabel('Frequency')
 plt.show()
