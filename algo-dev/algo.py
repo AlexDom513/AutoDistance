@@ -10,10 +10,10 @@ from matplotlib.animation import FuncAnimation
 SEC = 20
 TIME_STEP = 0.001
 ITER = int(SEC * (1/TIME_STEP))
-SETPOINT = 0.5
+SETPOINT = 10
 INITIAL_X = 0
 INITIAL_VX = 0
-MASS = 1
+MASS = 0.1
 LENGTH = 7
 HEIGHT = 24
 HYPOTENUSE = np.sqrt(np.power(LENGTH,2) + np.power(HEIGHT,2))
@@ -114,7 +114,7 @@ def animate(frame):
     if (frame > 0):
         point.set_data(x[-1],y[-1])
         txt.set_text('force applied: ' + str(round(fanForceHist[frame-1],1)) +
-                      ' N\nforce gravity: ' + str(round(np.sin(THETA) * MASS * G,1)))
+                      ' N\nforce gravity: ' + str(round(np.sin(THETA) * MASS * G,1)) + ' N')
         txt.set_position((-8, 0))
     return line, point, txt
 
@@ -131,7 +131,7 @@ plt.grid()
 plt.show()
 
 #plot force applied by fan
-plt.hist(fanForceHist[1:], bins=30, edgecolor='black')
+plt.hist(fanForceHist[1:], bins=100, edgecolor='black')
 plt.xlabel('Force Applied (N)')
 plt.ylabel('Frequency')
 plt.show()
