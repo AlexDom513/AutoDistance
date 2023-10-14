@@ -17,7 +17,7 @@ entity PulseController is
         i_recvPulse     : in std_logic;                         --recvieved pulse from ultrasonic
         o_trigPulse     : out std_logic;                        --trigger pulse sent to ultrasonic
         o_recvReady     : out std_logic;                        --strobe indicates when recvTime value is ready
-        o_recvTime      : out std_logic_vector(7 downto 0)     --proportional to pulse width recieved from ultrasonic
+        o_recvTime      : out std_logic_vector(7 downto 0)      --proportional to pulse width recieved from ultrasonic
     );
 end PulseController;
 

@@ -10,7 +10,7 @@ from matplotlib.animation import FuncAnimation
 SEC = 20
 TIME_STEP = 0.001
 ITER = int(SEC * (1/TIME_STEP))
-SETPOINT = 10
+SETPOINT = 100
 INITIAL_X = 0
 INITIAL_VX = 0
 MASS = 0.1
