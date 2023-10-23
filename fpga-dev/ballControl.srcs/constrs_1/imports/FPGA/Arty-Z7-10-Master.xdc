@@ -4,8 +4,8 @@
 ## - rename the used ports (in each line, after get_ports) according to the top level signal names in the project
 
 ## Clock Signal
-set_property -dict { PACKAGE_PIN H16    IOSTANDARD LVCMOS33 } [get_ports { sys_clk }]; #IO_L13P_T2_MRCC_35 Sch=SYSCLK
-create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { sys_clk }];#set
+set_property -dict { PACKAGE_PIN H16    IOSTANDARD LVCMOS33 } [get_ports { i_clk }]; #IO_L13P_T2_MRCC_35 Sch=SYSCLK
+#create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { sys_clk }];#set
 
 ## Switches
 set_property -dict { PACKAGE_PIN M20  IOSTANDARD LVCMOS33 } [get_ports { i_trigEnable }]; #IO_L7N_T1_AD2N_35 Sch=SW0
@@ -20,10 +20,10 @@ set_property -dict { PACKAGE_PIN M19  IOSTANDARD LVCMOS33 } [get_ports { i_rst }
 #set_property -dict { PACKAGE_PIN M15    IOSTANDARD LVCMOS33 } [get_ports { led5_r }]; #IO_L23N_T3_35 Sch=LED5_R
 
 ## LEDs
-set_property -dict { PACKAGE_PIN R14    IOSTANDARD LVCMOS33 } [get_ports { o_recvReady_0 }]; #IO_L6N_T0_VREF_34 Sch=LED0
-#set_property -dict { PACKAGE_PIN P14    IOSTANDARD LVCMOS33 } [get_ports { recvReady_led0(6) }]; #IO_L6P_T0_34 Sch=LED1
-#set_property -dict { PACKAGE_PIN N16    IOSTANDARD LVCMOS33 } [get_ports { recvReady_led0(5) }]; #IO_L21N_T3_DQS_AD14N_35 Sch=LED2
-#set_property -dict { PACKAGE_PIN M14    IOSTANDARD LVCMOS33 } [get_ports { recvReady_led0(4) }]; #IO_L23P_T3_35 Sch=LED3
+set_property -dict { PACKAGE_PIN R14    IOSTANDARD LVCMOS33 } [get_ports { o_led0 }]; #IO_L6N_T0_VREF_34 Sch=LED0
+set_property -dict { PACKAGE_PIN P14    IOSTANDARD LVCMOS33 } [get_ports { o_led1 }]; #IO_L6P_T0_34 Sch=LED1
+set_property -dict { PACKAGE_PIN N16    IOSTANDARD LVCMOS33 } [get_ports { o_led2 }]; #IO_L21N_T3_DQS_AD14N_35 Sch=LED2
+set_property -dict { PACKAGE_PIN M14    IOSTANDARD LVCMOS33 } [get_ports { o_led3 }]; #IO_L23P_T3_35 Sch=LED3
 
 ## Buttons
 #set_property -dict { PACKAGE_PIN D19    IOSTANDARD LVCMOS33 } [get_ports { reset_rtl }]; #IO_L4P_T0_35 Sch=BTN0
@@ -87,8 +87,8 @@ set_property -dict { PACKAGE_PIN R14    IOSTANDARD LVCMOS33 } [get_ports { o_rec
 #set_property -dict { PACKAGE_PIN M18   IOSTANDARD LVCMOS33 } [get_ports { hdmi_tx_sda }]; #IO_L8N_T1_AD10N_35 Sch=HDMI_TX_SDA
 
 ## ChipKit Outer Digital Header
-set_property -dict { PACKAGE_PIN T14   IOSTANDARD LVCMOS33 } [get_ports { trigPulse_io0  }]; #IO_L5P_T0_34            Sch=CK_IO0
-set_property -dict { PACKAGE_PIN U12   IOSTANDARD LVCMOS33 } [get_ports { recvPulse_io1  }]; #IO_L2N_T0_34            Sch=CK_IO1
+set_property -dict { PACKAGE_PIN T14   IOSTANDARD LVCMOS33 } [get_ports { o_trigPulse  }]; #IO_L5P_T0_34            Sch=CK_IO0
+set_property -dict { PACKAGE_PIN U12   IOSTANDARD LVCMOS33 } [get_ports { i_recvPulse  }]; #IO_L2N_T0_34            Sch=CK_IO1
 #set_property -dict { PACKAGE_PIN U13   IOSTANDARD LVCMOS33 } [get_ports { ck_io2  }]; #IO_L3P_T0_DQS_PUDC_B_34 Sch=CK_IO2
 #set_property -dict { PACKAGE_PIN V13   IOSTANDARD LVCMOS33 } [get_ports { ck_io3  }]; #IO_L3N_T0_DQS_34        Sch=CK_IO3
 #set_property -dict { PACKAGE_PIN V15   IOSTANDARD LVCMOS33 } [get_ports { ck_io4  }]; #IO_L10P_T1_34           Sch=CK_IO4

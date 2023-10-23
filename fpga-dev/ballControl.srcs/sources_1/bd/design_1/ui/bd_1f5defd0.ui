@@ -26,8 +26,8 @@ preplace port port-id_trigPulse_io0 -pg 1 -lvl 3 -x 550 -y 70 -defaultsOSRD
 preplace port port-id_recvPulse_io1 -pg 1 -lvl 0 -x -10 -y 150 -defaultsOSRD
 preplace port port-id_o_recvReady_0 -pg 1 -lvl 3 -x 550 -y 100 -defaultsOSRD
 preplace inst ila_0 -pg 1 -lvl 2 -x 430 -y 140 -defaultsOSRD -pinY clk 20L -pinBusY probe0 40L
-preplace inst PulseController_0 -pg 1 -lvl 1 -x 170 -y 50 -defaultsOSRD -pinY i_clk 20L -pinY i_rst 40L -pinY i_trigEnable 70L -pinY i_recvPulse 100L -pinY o_trigPulse 20R -pinY o_recvReady 50R -pinBusY o_recvTime 130R
-preplace netloc PulseController_0_o_recvReady 1 1 2 NJ 100 NJ
+preplace inst PulseController_0 -pg 1 -lvl 1 -x 170 -y 50 -swap {0 1 2 3 4 9 5 6 7 8} -defaultsOSRD -pinY i_clk 20L -pinY i_rst 40L -pinY i_trigEnable 70L -pinY i_recvPulse 100L -pinY o_trigPulse 20R -pinBusY o_recvTime 130R -pinY o_led0 40R -pinY o_led1 60R -pinY o_led2 80R -pinY o_led3 100R
+preplace netloc PulseController_0_o_recvReady 1 2 1 NJ 100
 preplace netloc PulseController_0_o_recvTime 1 1 1 N 180
 preplace netloc PulseController_0_o_trigPulse 1 1 2 NJ 70 NJ
 preplace netloc clk_wiz_0_clk_out1 1 0 2 30 10 310
@@ -38,7 +38,7 @@ levelinfo -pg 1 -10 170 430 550
 pagesize -pg 1 -db -bbox -sgen -160 0 700 260
 ",
    "Reduced Jogs_ScaleFactor":"1.25",
-   "Reduced Jogs_TopLeft":"-160,-164",
+   "Reduced Jogs_TopLeft":"-162,-164",
    "guistr":"# # String gsaved with Nlview 7.5.8 2022-09-21 7111 VDI=41 GEI=38 GUI=JA:10.0
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -lvl 4 -x 1040 -y 250 -defaultsOSRD
