@@ -6,7 +6,6 @@
 #   -based on: https://www.youtube.com/watch?v=ZMI_kpNUgJM
 #---------------------------------------------------------------------------------------------
 
-import control as ct
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
