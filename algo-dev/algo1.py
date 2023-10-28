@@ -1,5 +1,10 @@
-#purpose is to run simulation and understand how different parameters will affect PID system
-#based on: https://www.youtube.com/watch?v=ZMI_kpNUgJM
+#---------------------------------------------------------------------------------------------
+#   AlexDom513 --- 10/27/23
+#---------------------------------------------------------------------------------------------
+#   -Run simulation and understand how different parameters will affect PID controller output
+#   -Model represents ball on a ramp being pushed by a fan
+#   -based on: https://www.youtube.com/watch?v=ZMI_kpNUgJM
+#---------------------------------------------------------------------------------------------
 
 import control as ct
 import matplotlib.pyplot as plt
