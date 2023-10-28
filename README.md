@@ -1,2 +1,2 @@
 # autoDistance
-FPGA project to automatically control/maintain the position of a ball on a ramp.
+FPGA project to automatically control/maintain the position of a cart on a ramp.
