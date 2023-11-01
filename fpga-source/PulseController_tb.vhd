@@ -6,60 +6,77 @@ end PulseController_tb;
 
 architecture Behavioral of PulseController_tb is
 
-  --PulseController Inputs
-  signal tb_clk         : std_logic := '0';
-  signal tb_rst         : std_logic := '0';
-  signal tb_trigEnable  : std_logic := '0';
-  signal tb_recvPulse   : std_logic := '0';
+  -- simulation
+  signal sTime          : time := 0.1 ms;
 
-  --PulseCntroller Outputs
-  signal tb_trigPulse   : std_logic := '0';
-  signal tb_recvReady   : std_logic := '0';
-  signal tb_recvTime    : std_logic_vector(7 downto 0) := (others=>'0');
-  signal tb_led0        : std_logic;
-  signal tb_led1        : std_logic;
-  signal tb_led2        : std_logic;
-  signal tb_led3        : std_logic;
+  -- system
+  signal sClk           : std_logic := '0';
+  signal sRst           : std_logic := '0';
+
+  -- selects
+  signal sTrig_Enable   : std_logic := '0';
+
+  -- pulse
+  signal sTrig_Pulse    : std_logic := '0';
+  signal sRecv_Pulse    : std_logic := '0';
+
+  -- outputs
+  signal sRecv_Time     : std_logic_vector(7 downto 0) := (others=>'0');
+  signal sLed0          : std_logic;
+  signal sLed1          : std_logic;
+  signal sLed2          : std_logic;
+  signal sLed3          : std_logic;
 
 begin
     
-  --set clock
-  tb_clk <= not tb_clk after 4 ns;
+  -------------------------------------------------------
+  -- Clock
+  -------------------------------------------------------
+  sClk <= not sClk after 4 ns;
 
+  -------------------------------------------------------
+  -- Stimulus
+  -------------------------------------------------------
   tbStim: process is
   begin
 
     --system reset
-    tb_rst <= '1';
-    wait for 100 ns;
-    tb_rst <= '0';
+    sRst <= '1';
+    wait for 5 us;
+    sRst <= '0';
     wait for 100 ns;
 
-    --begin stimulus
-    tb_trigEnable <= '1';
-    for i in 0 to 10 loop
-      wait until tb_trigPulse = '1';    --pulse sent out
-      wait for 0.1 ms;                  --pulse traveling
-      tb_recvPulse <= '1';              --pulse return
-      wait for 1 ms;                    --wait for new pulse duration
-      tb_recvPulse <= '0';              --terminate pulse
+    --begin stim
+    sTrig_Enable <= '1';
+    for i in 0 to 100 loop
+
+      --wait for trigger pulse to be sent by state maching, allow for pulse travel time
+      wait until sTrig_Pulse = '1';
+      wait for 100 us;
+
+      --control the duration of Recv_Pulse in simulation to affect Recv_Time
+      sTime <= sTime + 0.1 ms;          --increase next pulse duration
+      sRecv_Pulse <= '1';               --pulse return
+      wait for sTime;                   --wait for new pulse duration
+      sRecv_Pulse <= '0';               --terminate pulse
+
     end loop;
+      sTrig_Enable <= '0';
     wait;
   end process;
 
   --instantiate PulseController
   UUT: entity work.PulseController
   port map (
-      i_clk           => tb_clk,
-      i_rst           => tb_rst,
-      i_trigEnable    => tb_trigEnable,
-      i_recvPulse     => tb_recvPulse,
-      o_trigPulse     => tb_trigPulse,
-      --o_recvReady     => tb_recvReady
-      --o_recvTime      => tb_recvTime
-      o_led0          => tb_led0,
-      o_led1          => tb_led1,
-      o_led2          => tb_led2,
-      o_led3          => tb_led3
+      Clk             => sClk,
+      Rst             => sRst,
+      Trig_Enable     => sTrig_Enable,
+      Recv_Pulse      => sRecv_Pulse,
+      Trig_Pulse      => sTrig_Pulse,
+      Recv_Time       => sRecv_Time,
+      Led0            => sLed0,
+      Led1            => sLed1,
+      Led2            => sLed2,
+      Led3            => sLed3
   );
 end Behavioral;

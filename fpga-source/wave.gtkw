@@ -1,0 +1,47 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Wed Nov 01 01:19:31 2023
+[*]
+[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\ballLevitation\autoDistance\fpga-source\pulse.vcd"
+[dumpfile_mtime] "Wed Nov 01 01:18:39 2023"
+[dumpfile_size] 41413477
+[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\ballLevitation\autoDistance\fpga-source\wave.gtkw"
+[timestart] 0
+[size] 2560 1369
+[pos] -1 -1
+*-39.419403 1621000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 197
+[signals_width] 233
+[sst_expanded] 1
+[sst_vpaned_height] 423
+@800200
+-sys
+@28
+sclk
+srst
+@1000200
+-sys
+@800200
+-select
+@28
+strig_enable
+@1000200
+-select
+@800200
+-io
+@28
+[color] 2
+strig_pulse
+[color] 2
+srecv_pulse
+@1000200
+-io
+@800200
+-output
+@25
+[color] 1
+srecv_time[7:0]
+@1000200
+-output
+[pattern_trace] 1
+[pattern_trace] 0
