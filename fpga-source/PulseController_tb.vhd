@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use std.textio.all;
 
 entity PulseController_tb is
 end PulseController_tb;
@@ -11,7 +12,7 @@ architecture Behavioral of PulseController_tb is
 
   -- system
   signal sClk           : std_logic := '0';
-  signal sRst           : std_logic := '0';
+  signal sRst           : std_logic := '1';
 
   -- selects
   signal sTrig_Enable   : std_logic := '0';
