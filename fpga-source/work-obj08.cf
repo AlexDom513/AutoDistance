@@ -1,7 +1,0 @@
-v 4
-file . "PulseController_tb.vhd" "b5dcf7be4c8416eeb6c9e432fa94ce192dc3eaf1" "20231104031344.425":
-  entity pulsecontroller_tb at 1( 0) + 0 on 197;
-  architecture behavioral of pulsecontroller_tb at 8( 118) + 0 on 198;
-file . "PulseController.vhd" "64aaa223c2dcce0c08f57c326b8aaa947caccbb9" "20231104031344.419":
-  entity pulsecontroller at 1( 0) + 0 on 195;
-  architecture behavioral of pulsecontroller at 28( 1160) + 0 on 196;

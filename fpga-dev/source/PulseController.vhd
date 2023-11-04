@@ -1,23 +1,23 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity PulseController is
   generic (
 
-    --initialized for use with 125 MHz clock
+    --initialized for use with 125 MHz clock (8 ns period), 8 ns * cConstant = target time
     cTrig_Count : integer := 1500;        -- > 10 us trigger pulse
     cRecv_Count : integer := 1250;        --0.01 ms receive granularity
     cWait_Count : integer := 7500000;     --60 ms retransmit window
     cPause_Count: integer := 7500000      --60 ms pause
   );
   port (
-    Clk             : in  std_logic;                          --input clock
-    Rst             : in  std_logic;                          --reset signal
-    Trig_Enable     : in  std_logic;                          --enable/disable ultrasonic
-    Recv_Pulse      : in  std_logic;                          --recvieved pulse from ultrasonic
-    Trig_Pulse      : out std_logic;                          --trigger pulse sent to ultrasonic
-    --Recv_Time       : out std_logic_vector(7 downto 0);     --proportional to pulse width recieved from ultrasonic
+    Clk             : in  std_logic;                --input clock
+    Rst             : in  std_logic;                --reset signal
+    Trig_Enable     : in  std_logic;                --enable/disable ultrasonic
+    Recv_Pulse      : in  std_logic;                --recvieved pulse from ultrasonic
+    Trig_Pulse      : out std_logic;                --trigger pulse sent to ultrasonic
+    Recv_Time       : out unsigned(7 downto 0);     --proportional to pulse width recieved from ultrasonic
     Led0            : out std_logic;
     Led1            : out std_logic;
     Led2            : out std_logic;
@@ -51,11 +51,11 @@ begin
       Led1 <= '0';
       Led2 <= '0';
       Led3 <= '0';
-      if (ledRecv_Time < 20) then
+      if (ledRecv_Time < 50) then
         Led0 <= '1';
-      elsif (ledRecv_Time < 50) then
-        Led1 <= '1';
       elsif (ledRecv_Time < 100) then
+        Led1 <= '1';
+      elsif (ledRecv_Time < 200) then
         Led2 <= '1';
       else
         Led3 <= '1';
@@ -63,6 +63,7 @@ begin
     end if;
   end process;
 
+  --creates stimulus pulse to start HC-SR04, processes length of returned waveform to discern how far away object is located
   stateMachine: process(Clk) is
   begin
     if (rising_edge(Clk)) then
@@ -70,7 +71,7 @@ begin
       --reset logic, state machine to IDLE, output Recv_Time to zero, disable trigger pulse
       if (Rst = '1') then
         sState        <= IDLE;
-        --Recv_Time     <= (others => '0');
+        Recv_Time     <= (others => '0');
         Trig_Pulse    <= '0';
       else
         case sState is
@@ -123,7 +124,7 @@ begin
                 sRecv_Counter <= sRecv_Counter + 1;
               end if;
             else
-              --Recv_Time <= std_logic_vector(sRecv_Time); --re-add
+              Recv_Time <= sRecv_Time;
               ledRecv_Time <= sRecv_Time;
               sState <= PAUSE;
             end if;

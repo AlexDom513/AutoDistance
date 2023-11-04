@@ -1,5 +1,5 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
 use std.textio.all;
 
 entity PulseController_tb is
@@ -22,7 +22,6 @@ architecture Behavioral of PulseController_tb is
   signal sRecv_Pulse    : std_logic := '0';
 
   -- outputs
-  signal sRecv_Time     : std_logic_vector(7 downto 0) := (others=>'0');
   signal sLed0          : std_logic;
   signal sLed1          : std_logic;
   signal sLed2          : std_logic;
@@ -74,7 +73,6 @@ begin
       Trig_Enable     => sTrig_Enable,
       Recv_Pulse      => sRecv_Pulse,
       Trig_Pulse      => sTrig_Pulse,
-      --Recv_Time       => sRecv_Time,
       Led0            => sLed0,
       Led1            => sLed1,
       Led2            => sLed2,
