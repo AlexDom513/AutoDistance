@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Fri Nov 03 03:51:44 2023
+[*] Sat Nov 04 03:18:25 2023
 [*]
 [dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\pulse.ghw"
-[dumpfile_mtime] "Fri Nov 03 03:41:45 2023"
-[dumpfile_size] 470426262
+[dumpfile_mtime] "Sat Nov 04 03:15:13 2023"
+[dumpfile_size] 258309471
 [savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\wave.gtkw"
 [timestart] 0
 [size] 2560 1369
 [pos] -1 -1
-*-44.253002 60195100000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-43.386620 2191610000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.pulsecontroller_tb.
 [treeopen] top.pulsecontroller_tb.uut.
@@ -48,8 +48,8 @@ top.pulsecontroller_tb.uut.strig_counter
 -Counters
 @800200
 -Outputs
-@25
-#{top.pulsecontroller_tb.uut.recv_time[7:0]} top.pulsecontroller_tb.uut.recv_time[7] top.pulsecontroller_tb.uut.recv_time[6] top.pulsecontroller_tb.uut.recv_time[5] top.pulsecontroller_tb.uut.recv_time[4] top.pulsecontroller_tb.uut.recv_time[3] top.pulsecontroller_tb.uut.recv_time[2] top.pulsecontroller_tb.uut.recv_time[1] top.pulsecontroller_tb.uut.recv_time[0]
+@23
+#{top.pulsecontroller_tb.uut.ledrecv_time[7:0]} top.pulsecontroller_tb.uut.ledrecv_time[7] top.pulsecontroller_tb.uut.ledrecv_time[6] top.pulsecontroller_tb.uut.ledrecv_time[5] top.pulsecontroller_tb.uut.ledrecv_time[4] top.pulsecontroller_tb.uut.ledrecv_time[3] top.pulsecontroller_tb.uut.ledrecv_time[2] top.pulsecontroller_tb.uut.ledrecv_time[1] top.pulsecontroller_tb.uut.ledrecv_time[0]
 @1000200
 -Outputs
 [pattern_trace] 1

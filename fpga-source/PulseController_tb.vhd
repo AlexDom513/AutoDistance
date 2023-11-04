@@ -74,7 +74,7 @@ begin
       Trig_Enable     => sTrig_Enable,
       Recv_Pulse      => sRecv_Pulse,
       Trig_Pulse      => sTrig_Pulse,
-      Recv_Time       => sRecv_Time,
+      --Recv_Time       => sRecv_Time,
       Led0            => sLed0,
       Led1            => sLed1,
       Led2            => sLed2,
