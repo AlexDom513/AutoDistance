@@ -43,7 +43,7 @@ architecture Behavioral of PulseController is
 
 begin
 
-  --usesd for on-board development/debugging
+  --used for on-board development/debugging
   ledIndicator: process(Clk) is
   begin
     if (rising_edge(Clk)) then
@@ -63,7 +63,11 @@ begin
     end if;
   end process;
 
-  --creates stimulus pulse to start HC-SR04, processes length of returned waveform to discern how far away object is located
+  ----------------------------------------------------------------------
+  -- PulseController State Machine
+  -- creates stimulus pulse to start HC-SR04
+  -- processes length of returned wavefrom to discern pulse travel time
+  ----------------------------------------------------------------------
   stateMachine: process(Clk) is
   begin
     if (rising_edge(Clk)) then
