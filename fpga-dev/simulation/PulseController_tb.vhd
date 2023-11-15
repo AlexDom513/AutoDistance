@@ -29,14 +29,10 @@ architecture Behavioral of PulseController_tb is
 
 begin
     
-  -------------------------------------------------------
-  -- Clock
-  -------------------------------------------------------
+  --clock
   sClk <= not sClk after 4 ns;
 
-  -------------------------------------------------------
-  -- Stimulus
-  -------------------------------------------------------
+  --stimulus
   tbStim: process is
   begin
 
@@ -68,14 +64,14 @@ begin
   --instantiate PulseController
   UUT: entity work.PulseController
   port map (
-      Clk             => sClk,
-      Rst             => sRst,
-      Trig_Enable     => sTrig_Enable,
-      Recv_Pulse      => sRecv_Pulse,
-      Trig_Pulse      => sTrig_Pulse,
-      Led0            => sLed0,
-      Led1            => sLed1,
-      Led2            => sLed2,
-      Led3            => sLed3
+    Clk             => sClk,
+    Rst             => sRst,
+    Trig_Enable     => sTrig_Enable,
+    Recv_Pulse      => sRecv_Pulse,
+    Trig_Pulse      => sTrig_Pulse,
+    Led0            => sLed0,
+    Led1            => sLed1,
+    Led2            => sLed2,
+    Led3            => sLed3
   );
 end Behavioral;

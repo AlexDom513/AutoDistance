@@ -29,7 +29,7 @@ architecture Behavioral of StepperController is
 
   --counters
   signal sPosition_Counter            : unsigned(7 downto 0);
-  signal sPulse_Duration_Counter      : unsigned(23 downto 0);
+  signal sPulse_Duration_Counter      : unsigned(4 downto 0);  --MODIFY THIS VALUE
 
   --state machines
   signal sStepper_State               : tStepper_State := SETUP;
@@ -57,6 +57,7 @@ begin
           case sStepper_State is
 
             --SETUP state, calibrate the position counter (bring ramp to lowered position)
+            --probably want to redo this logic, not so jumpy
             when SETUP =>
               if (Init_Pos_Sel = '1') then
                 sPosition_Counter <= (others => '0');

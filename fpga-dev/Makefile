@@ -6,12 +6,13 @@ GHW 						= ghw
 SOURCE_DIR 			= source/
 SOURCES 				= $(SOURCE_DIR)PulseController.vhd $(SOURCE_DIR)StepperController.vhd $(SOURCE_DIR)autoDistance_top.vhd
 SIM_DIR					= simulation/
-SIM_SOURCES 		= $(SIM_DIR)PulseController_tb.vhd
+SIM_SOURCES 		= $(SIM_DIR)PulseController_tb.vhd $(SIM_DIR)StepperController_tb.vhd
 
-TOP_ENTITY 			= PulseController_tb
-WORKSPACE_FILE 	= $(SIM_DIR)wave.gtkw
-GHW_FILE 				= $(SIM_DIR)pulse.ghw
-SIM_TIME 				= 20ms
+SELECTION  			= StepperController
+TOP_ENTITY			= $(SELECTION)_tb
+WORKSPACE_FILE  = $(SIM_DIR)$(SELECTION).gtkw
+GHW_FILE 				= $(SIM_DIR)$(SELECTION).ghw
+SIM_TIME 				= 100us
 
 all: build sim gtk
 
