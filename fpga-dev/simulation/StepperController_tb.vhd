@@ -44,6 +44,7 @@ begin
     Rst             => sRst,
     Init_Pos_Sel    => sInit_Pos_Sel,
     Dir_Sel         => sDir_Sel,
-    Step_Pulse      => sStep_Pulse
+    Step_Pulse      => sStep_Pulse,
+    LED             => open
   );
 end Behavioral;

@@ -12,7 +12,7 @@ SELECTION  			= StepperController
 TOP_ENTITY			= $(SELECTION)_tb
 WORKSPACE_FILE  = $(SIM_DIR)$(SELECTION).gtkw
 GHW_FILE 				= $(SIM_DIR)$(SELECTION).ghw
-SIM_TIME 				= 100us
+SIM_TIME 				= 5ms
 
 all: build sim gtk
 
