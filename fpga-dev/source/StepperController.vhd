@@ -72,7 +72,7 @@ begin
 
             --INCR state, raise stepper motor until the threshold is reached
             when INCR =>
-              if (sPosition_Counter = 255) then
+              if (sPosition_Counter = 100) then
                 sStepper_State <= DECR;
               elsif (sPulse_State = IDLE) then
                 Dir_Sel <= '0';
