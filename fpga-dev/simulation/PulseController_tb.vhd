@@ -7,21 +7,21 @@ end PulseController_tb;
 
 architecture Behavioral of PulseController_tb is
 
-  -- simulation
+  --simulation
   signal sTime          : time := 0.1 ms;
 
-  -- system
+  --system
   signal sClk           : std_logic := '0';
   signal sRst           : std_logic := '1';
 
-  -- selects
+  --selects
   signal sTrig_Enable   : std_logic := '0';
 
-  -- pulse
+  --pulse
   signal sTrig_Pulse    : std_logic := '0';
   signal sRecv_Pulse    : std_logic := '0';
 
-  -- outputs
+  --outputs
   signal sLed0          : std_logic;
   signal sLed1          : std_logic;
   signal sLed2          : std_logic;
@@ -51,7 +51,7 @@ begin
       wait for 100 us;
 
       --control the duration of Recv_Pulse in simulation to affect Recv_Time
-      sTime <= sTime + 0.1 ms;          --increase next pulse duration
+      sTime <= sTime + 0.01 ms;         --increase next pulse duration
       sRecv_Pulse <= '1';               --pulse return
       wait for sTime;                   --wait for new pulse duration
       sRecv_Pulse <= '0';               --terminate pulse
@@ -63,15 +63,16 @@ begin
 
   --instantiate PulseController
   UUT: entity work.PulseController
-  port map (
-    Clk             => sClk,
-    Rst             => sRst,
-    Trig_Enable     => sTrig_Enable,
-    Recv_Pulse      => sRecv_Pulse,
-    Trig_Pulse      => sTrig_Pulse,
-    Led0            => sLed0,
-    Led1            => sLed1,
-    Led2            => sLed2,
-    Led3            => sLed3
-  );
+    port map (
+      Clk             => sClk,
+      Rst             => sRst,
+      Trig_Enable     => sTrig_Enable,
+      Recv_Pulse      => sRecv_Pulse,
+      Trig_Pulse      => sTrig_Pulse,
+      Curr_Dist       => open,
+      Led0            => sLed0,
+      Led1            => sLed1,
+      Led2            => sLed2,
+      Led3            => sLed3
+    );
 end Behavioral;

@@ -7,9 +7,9 @@ entity PulseController is
 
     --initialized for use with 125 MHz clock (8 ns period), 8 ns * cConstant = target time
     cTrig_Count : integer := 1500;        -- > 10 us trigger pulse
-    cRecv_Count : integer := 1250;        --0.01 ms receive granularity
-    cWait_Count : integer := 7500000;     --60 ms retransmit window
-    cPause_Count: integer := 7500000      --60 ms pause
+    cRecv_Count : integer := 477;         -- ~2^-18 (s) receive resolution
+    cWait_Count : integer := 7500000;     -- 60 ms retransmit window
+    cPause_Count: integer := 7500000      -- 60 ms pause
   );
   port (
     Clk             : in  std_logic;                --input clock
@@ -17,7 +17,7 @@ entity PulseController is
     Trig_Enable     : in  std_logic;                --enable/disable ultrasonic
     Recv_Pulse      : in  std_logic;                --recvieved pulse from ultrasonic
     Trig_Pulse      : out std_logic;                --trigger pulse sent to ultrasonic
-    Recv_Time       : out unsigned(7 downto 0);     --proportional to pulse width recieved from ultrasonic
+    Curr_Dist       : out unsigned(26 downto 0);    --(Q8.19) current distance 
     Led0            : out std_logic;
     Led1            : out std_logic;
     Led2            : out std_logic;
@@ -27,14 +27,17 @@ end PulseController;
 
 architecture Behavioral of PulseController is
 
+  --constants
+  constant cTime_to_Dist  : unsigned(8 downto 0) := "101010111";  --(Q8.1) conversion factor, represents (speed of sound)/2 = 171.5 m/s
+
   --time increment
-  signal sRecv_Time       : unsigned(7 downto 0);
-  signal ledRecv_Time     : unsigned(7 downto 0);
+  signal sRecv_Time       : unsigned(17 downto 0);                --(Q0.18) round-trip pulse travel time
+  signal ledRecv_Time     : unsigned(17 downto 0);
 
   --counters
   signal sTrig_Counter    : integer range 0 to cTrig_Count;
   signal sWait_Counter    : integer range 0 to cWait_Count;
-  signal sRecv_Counter    : integer range 0 to cRecv_Count;
+  signal sRecv_Counter    : integer range 0 to cRecv_Count;     --replace all with unsigned!!!
   signal sPause_Counter   : integer range 0 to cPause_Count;
 
   --state machine
@@ -72,10 +75,11 @@ begin
   begin
     if (rising_edge(Clk)) then
 
-      --reset logic, state machine to IDLE, output Recv_Time to zero, disable trigger pulse
+      --reset logic, state machine to IDLE, output sRecv_Time to zero, disable trigger pulse
       if (Rst = '1') then
         sState        <= IDLE;
-        Recv_Time     <= (others => '0');
+        sRecv_Time    <= (others => '0');
+        Curr_Dist     <= (others => '0');
         Trig_Pulse    <= '0';
       else
         case sState is
@@ -118,7 +122,7 @@ begin
               sState <= ANTCP;
             end if;
         
-          --RECV state, recieve echo pulse and determine length, sRecv_Time incremented by 1 after every 0.01 ms
+          --RECV state, recieve echo pulse and determine length, sRecv_Time incremented by 1 after ever cRecv_Count
           when RECV =>
             if (Recv_Pulse = '1') then
               if (sRecv_Counter > cRecv_Count-1) then
@@ -128,7 +132,7 @@ begin
                 sRecv_Counter <= sRecv_Counter + 1;
               end if;
             else
-              Recv_Time <= sRecv_Time;
+              Curr_Dist <= sRecv_Time * cTime_to_Dist;
               ledRecv_Time <= sRecv_Time;
               sState <= PAUSE;
             end if;

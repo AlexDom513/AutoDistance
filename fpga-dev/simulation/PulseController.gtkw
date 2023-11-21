@@ -1,56 +1,80 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Sat Nov 04 03:18:25 2023
+[*] Tue Nov 21 05:58:11 2023
 [*]
-[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\pulse.ghw"
-[dumpfile_mtime] "Sat Nov 04 03:15:13 2023"
-[dumpfile_size] 258309471
-[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\wave.gtkw"
-[timestart] 0
+[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.ghw"
+[dumpfile_mtime] "Tue Nov 21 05:41:09 2023"
+[dumpfile_size] 4466461
+[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.gtkw"
+[timestart] 195324000000
 [size] 2560 1369
-[pos] -1 -1
-*-43.386620 2191610000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -61 -61
+*-30.880898 205704000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.pulsecontroller_tb.
 [treeopen] top.pulsecontroller_tb.uut.
-[sst_width] 290
-[signals_width] 310
+[sst_width] 348
+[signals_width] 273
 [sst_expanded] 1
 [sst_vpaned_height] 423
 @800200
--System
+-system
 @28
-[color] 4
 top.pulsecontroller_tb.sclk
-[color] 4
 top.pulsecontroller_tb.srst
 @1000200
--System
+-system
 @800200
--Stim
+-measurements
+@25
+[color] 2
+top.pulsecontroller_tb.stime
+@c00022
+[color] 2
+#{top.pulsecontroller_tb.uut.curr_dist[26:0]} top.pulsecontroller_tb.uut.curr_dist[26] top.pulsecontroller_tb.uut.curr_dist[25] top.pulsecontroller_tb.uut.curr_dist[24] top.pulsecontroller_tb.uut.curr_dist[23] top.pulsecontroller_tb.uut.curr_dist[22] top.pulsecontroller_tb.uut.curr_dist[21] top.pulsecontroller_tb.uut.curr_dist[20] top.pulsecontroller_tb.uut.curr_dist[19] top.pulsecontroller_tb.uut.curr_dist[18] top.pulsecontroller_tb.uut.curr_dist[17] top.pulsecontroller_tb.uut.curr_dist[16] top.pulsecontroller_tb.uut.curr_dist[15] top.pulsecontroller_tb.uut.curr_dist[14] top.pulsecontroller_tb.uut.curr_dist[13] top.pulsecontroller_tb.uut.curr_dist[12] top.pulsecontroller_tb.uut.curr_dist[11] top.pulsecontroller_tb.uut.curr_dist[10] top.pulsecontroller_tb.uut.curr_dist[9] top.pulsecontroller_tb.uut.curr_dist[8] top.pulsecontroller_tb.uut.curr_dist[7] top.pulsecontroller_tb.uut.curr_dist[6] top.pulsecontroller_tb.uut.curr_dist[5] top.pulsecontroller_tb.uut.curr_dist[4] top.pulsecontroller_tb.uut.curr_dist[3] top.pulsecontroller_tb.uut.curr_dist[2] top.pulsecontroller_tb.uut.curr_dist[1] top.pulsecontroller_tb.uut.curr_dist[0]
+@28
+top.pulsecontroller_tb.uut.curr_dist[26]
+top.pulsecontroller_tb.uut.curr_dist[25]
+top.pulsecontroller_tb.uut.curr_dist[24]
+top.pulsecontroller_tb.uut.curr_dist[23]
+top.pulsecontroller_tb.uut.curr_dist[22]
+top.pulsecontroller_tb.uut.curr_dist[21]
+top.pulsecontroller_tb.uut.curr_dist[20]
+top.pulsecontroller_tb.uut.curr_dist[19]
+top.pulsecontroller_tb.uut.curr_dist[18]
+top.pulsecontroller_tb.uut.curr_dist[17]
+top.pulsecontroller_tb.uut.curr_dist[16]
+top.pulsecontroller_tb.uut.curr_dist[15]
+top.pulsecontroller_tb.uut.curr_dist[14]
+top.pulsecontroller_tb.uut.curr_dist[13]
+top.pulsecontroller_tb.uut.curr_dist[12]
+top.pulsecontroller_tb.uut.curr_dist[11]
+top.pulsecontroller_tb.uut.curr_dist[10]
+top.pulsecontroller_tb.uut.curr_dist[9]
+top.pulsecontroller_tb.uut.curr_dist[8]
+top.pulsecontroller_tb.uut.curr_dist[7]
+top.pulsecontroller_tb.uut.curr_dist[6]
+top.pulsecontroller_tb.uut.curr_dist[5]
+top.pulsecontroller_tb.uut.curr_dist[4]
+top.pulsecontroller_tb.uut.curr_dist[3]
+top.pulsecontroller_tb.uut.curr_dist[2]
+top.pulsecontroller_tb.uut.curr_dist[1]
+top.pulsecontroller_tb.uut.curr_dist[0]
+@1401200
+-group_end
+@22
+[color] 2
+#{top.pulsecontroller_tb.uut.srecv_time[17:0]} top.pulsecontroller_tb.uut.srecv_time[17] top.pulsecontroller_tb.uut.srecv_time[16] top.pulsecontroller_tb.uut.srecv_time[15] top.pulsecontroller_tb.uut.srecv_time[14] top.pulsecontroller_tb.uut.srecv_time[13] top.pulsecontroller_tb.uut.srecv_time[12] top.pulsecontroller_tb.uut.srecv_time[11] top.pulsecontroller_tb.uut.srecv_time[10] top.pulsecontroller_tb.uut.srecv_time[9] top.pulsecontroller_tb.uut.srecv_time[8] top.pulsecontroller_tb.uut.srecv_time[7] top.pulsecontroller_tb.uut.srecv_time[6] top.pulsecontroller_tb.uut.srecv_time[5] top.pulsecontroller_tb.uut.srecv_time[4] top.pulsecontroller_tb.uut.srecv_time[3] top.pulsecontroller_tb.uut.srecv_time[2] top.pulsecontroller_tb.uut.srecv_time[1] top.pulsecontroller_tb.uut.srecv_time[0]
+@1000200
+-measurements
+@800200
+-pulses
+@420
+top.pulsecontroller_tb.uut.sstate
 @28
 top.pulsecontroller_tb.uut.trig_pulse
 top.pulsecontroller_tb.uut.recv_pulse
-@420
-top.pulsecontroller_tb.uut.sstate
 @1000200
--Stim
-@800200
--Counters
-@420
-[color] 4
-top.pulsecontroller_tb.uut.srecv_counter
-[color] 4
-top.pulsecontroller_tb.uut.swait_counter
-[color] 4
-top.pulsecontroller_tb.uut.strig_counter
-@1000200
--Counters
-@800200
--Outputs
-@23
-#{top.pulsecontroller_tb.uut.ledrecv_time[7:0]} top.pulsecontroller_tb.uut.ledrecv_time[7] top.pulsecontroller_tb.uut.ledrecv_time[6] top.pulsecontroller_tb.uut.ledrecv_time[5] top.pulsecontroller_tb.uut.ledrecv_time[4] top.pulsecontroller_tb.uut.ledrecv_time[3] top.pulsecontroller_tb.uut.ledrecv_time[2] top.pulsecontroller_tb.uut.ledrecv_time[1] top.pulsecontroller_tb.uut.ledrecv_time[0]
-@1000200
--Outputs
+-pulses
 [pattern_trace] 1
 [pattern_trace] 0
