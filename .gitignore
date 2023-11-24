@@ -1,4 +1,5 @@
 # [home]
+*/.vscode
 *.gcode
 *.ghw
 *.vcd
