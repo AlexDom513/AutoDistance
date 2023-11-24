@@ -1,3 +1,23 @@
+-----------------------------------------------------------------------------------------------
+--    AlexDom513 --- 11/23/23
+-----------------------------------------------------------------------------------------------
+--    The goal of this project is to use a FPGA in order to control the position of a cart
+--    on a ramp. The ramp has an ultrasonic sensor at one end so that we can measure the cart's
+--    distance from the sensor. We then process this distance in order to generate control
+--    commands for the stepper motor. Finally, the stepper motor adjusts the angle of
+--    the ramp so that the cart reaches a target position along the ramp.
+--
+--    pulseController
+--        -handles triggering/processing of data from HC-SR04 (ultrasonic) sensor
+--
+--    pidController
+--        -handles processing of distance data from pulseController module
+--        -generates ramp adjustments that will be executed by stepperController module
+--
+--    stepperController
+--        -handles physical control of the stepper motor
+-----------------------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -17,12 +37,12 @@ entity autoDistance_top is
     --Led1              : out std_logic;
     --Led2              : out std_logic;
     --Led3              : out std_logic
-    );
+  );
 end autoDistance_top;
 
 architecture Behavioral of autoDistance_top is
 
-  --data values
+  --data
   --signal sRecv_Time   : unsigned(7 downto 0);
 
 begin
@@ -44,7 +64,7 @@ begin
   --     Trig_Enable     => Trig_Enable,
   --     Recv_Pulse      => Recv_Pulse,
   --     Trig_Pulse      => Trig_Pulse,
-  --     Recv_Time       => sRecv_Time,
+  --     Curr_Dist       => sCurrDist,
   --     Led0            => Led0,
   --     Led1            => Led1,
   --     Led2            => Led2,

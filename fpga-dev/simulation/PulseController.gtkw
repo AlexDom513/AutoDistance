@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Tue Nov 21 05:58:11 2023
+[*] Fri Nov 24 03:20:13 2023
 [*]
 [dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.ghw"
-[dumpfile_mtime] "Tue Nov 21 05:41:09 2023"
-[dumpfile_size] 4466461
+[dumpfile_mtime] "Fri Nov 24 03:18:22 2023"
+[dumpfile_size] 210675
 [savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.gtkw"
-[timestart] 195324000000
+[timestart] 0
 [size] 2560 1369
-[pos] -61 -61
-*-30.880898 205704000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-33.303127 71530000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.pulsecontroller_tb.
 [treeopen] top.pulsecontroller_tb.uut.
@@ -26,45 +26,15 @@ top.pulsecontroller_tb.srst
 -system
 @800200
 -measurements
-@25
+@24
 [color] 2
 top.pulsecontroller_tb.stime
-@c00022
-[color] 2
-#{top.pulsecontroller_tb.uut.curr_dist[26:0]} top.pulsecontroller_tb.uut.curr_dist[26] top.pulsecontroller_tb.uut.curr_dist[25] top.pulsecontroller_tb.uut.curr_dist[24] top.pulsecontroller_tb.uut.curr_dist[23] top.pulsecontroller_tb.uut.curr_dist[22] top.pulsecontroller_tb.uut.curr_dist[21] top.pulsecontroller_tb.uut.curr_dist[20] top.pulsecontroller_tb.uut.curr_dist[19] top.pulsecontroller_tb.uut.curr_dist[18] top.pulsecontroller_tb.uut.curr_dist[17] top.pulsecontroller_tb.uut.curr_dist[16] top.pulsecontroller_tb.uut.curr_dist[15] top.pulsecontroller_tb.uut.curr_dist[14] top.pulsecontroller_tb.uut.curr_dist[13] top.pulsecontroller_tb.uut.curr_dist[12] top.pulsecontroller_tb.uut.curr_dist[11] top.pulsecontroller_tb.uut.curr_dist[10] top.pulsecontroller_tb.uut.curr_dist[9] top.pulsecontroller_tb.uut.curr_dist[8] top.pulsecontroller_tb.uut.curr_dist[7] top.pulsecontroller_tb.uut.curr_dist[6] top.pulsecontroller_tb.uut.curr_dist[5] top.pulsecontroller_tb.uut.curr_dist[4] top.pulsecontroller_tb.uut.curr_dist[3] top.pulsecontroller_tb.uut.curr_dist[2] top.pulsecontroller_tb.uut.curr_dist[1] top.pulsecontroller_tb.uut.curr_dist[0]
-@28
-top.pulsecontroller_tb.uut.curr_dist[26]
-top.pulsecontroller_tb.uut.curr_dist[25]
-top.pulsecontroller_tb.uut.curr_dist[24]
-top.pulsecontroller_tb.uut.curr_dist[23]
-top.pulsecontroller_tb.uut.curr_dist[22]
-top.pulsecontroller_tb.uut.curr_dist[21]
-top.pulsecontroller_tb.uut.curr_dist[20]
-top.pulsecontroller_tb.uut.curr_dist[19]
-top.pulsecontroller_tb.uut.curr_dist[18]
-top.pulsecontroller_tb.uut.curr_dist[17]
-top.pulsecontroller_tb.uut.curr_dist[16]
-top.pulsecontroller_tb.uut.curr_dist[15]
-top.pulsecontroller_tb.uut.curr_dist[14]
-top.pulsecontroller_tb.uut.curr_dist[13]
-top.pulsecontroller_tb.uut.curr_dist[12]
-top.pulsecontroller_tb.uut.curr_dist[11]
-top.pulsecontroller_tb.uut.curr_dist[10]
-top.pulsecontroller_tb.uut.curr_dist[9]
-top.pulsecontroller_tb.uut.curr_dist[8]
-top.pulsecontroller_tb.uut.curr_dist[7]
-top.pulsecontroller_tb.uut.curr_dist[6]
-top.pulsecontroller_tb.uut.curr_dist[5]
-top.pulsecontroller_tb.uut.curr_dist[4]
-top.pulsecontroller_tb.uut.curr_dist[3]
-top.pulsecontroller_tb.uut.curr_dist[2]
-top.pulsecontroller_tb.uut.curr_dist[1]
-top.pulsecontroller_tb.uut.curr_dist[0]
-@1401200
--group_end
 @22
 [color] 2
-#{top.pulsecontroller_tb.uut.srecv_time[17:0]} top.pulsecontroller_tb.uut.srecv_time[17] top.pulsecontroller_tb.uut.srecv_time[16] top.pulsecontroller_tb.uut.srecv_time[15] top.pulsecontroller_tb.uut.srecv_time[14] top.pulsecontroller_tb.uut.srecv_time[13] top.pulsecontroller_tb.uut.srecv_time[12] top.pulsecontroller_tb.uut.srecv_time[11] top.pulsecontroller_tb.uut.srecv_time[10] top.pulsecontroller_tb.uut.srecv_time[9] top.pulsecontroller_tb.uut.srecv_time[8] top.pulsecontroller_tb.uut.srecv_time[7] top.pulsecontroller_tb.uut.srecv_time[6] top.pulsecontroller_tb.uut.srecv_time[5] top.pulsecontroller_tb.uut.srecv_time[4] top.pulsecontroller_tb.uut.srecv_time[3] top.pulsecontroller_tb.uut.srecv_time[2] top.pulsecontroller_tb.uut.srecv_time[1] top.pulsecontroller_tb.uut.srecv_time[0]
+#{top.pulsecontroller_tb.uut.curr_dist[23:0]} top.pulsecontroller_tb.uut.curr_dist[23] top.pulsecontroller_tb.uut.curr_dist[22] top.pulsecontroller_tb.uut.curr_dist[21] top.pulsecontroller_tb.uut.curr_dist[20] top.pulsecontroller_tb.uut.curr_dist[19] top.pulsecontroller_tb.uut.curr_dist[18] top.pulsecontroller_tb.uut.curr_dist[17] top.pulsecontroller_tb.uut.curr_dist[16] top.pulsecontroller_tb.uut.curr_dist[15] top.pulsecontroller_tb.uut.curr_dist[14] top.pulsecontroller_tb.uut.curr_dist[13] top.pulsecontroller_tb.uut.curr_dist[12] top.pulsecontroller_tb.uut.curr_dist[11] top.pulsecontroller_tb.uut.curr_dist[10] top.pulsecontroller_tb.uut.curr_dist[9] top.pulsecontroller_tb.uut.curr_dist[8] top.pulsecontroller_tb.uut.curr_dist[7] top.pulsecontroller_tb.uut.curr_dist[6] top.pulsecontroller_tb.uut.curr_dist[5] top.pulsecontroller_tb.uut.curr_dist[4] top.pulsecontroller_tb.uut.curr_dist[3] top.pulsecontroller_tb.uut.curr_dist[2] top.pulsecontroller_tb.uut.curr_dist[1] top.pulsecontroller_tb.uut.curr_dist[0]
+@421
+[color] 2
+#{top.pulsecontroller_tb.uut.srecv_time[11:0]} top.pulsecontroller_tb.uut.srecv_time[11] top.pulsecontroller_tb.uut.srecv_time[10] top.pulsecontroller_tb.uut.srecv_time[9] top.pulsecontroller_tb.uut.srecv_time[8] top.pulsecontroller_tb.uut.srecv_time[7] top.pulsecontroller_tb.uut.srecv_time[6] top.pulsecontroller_tb.uut.srecv_time[5] top.pulsecontroller_tb.uut.srecv_time[4] top.pulsecontroller_tb.uut.srecv_time[3] top.pulsecontroller_tb.uut.srecv_time[2] top.pulsecontroller_tb.uut.srecv_time[1] top.pulsecontroller_tb.uut.srecv_time[0]
 @1000200
 -measurements
 @800200
@@ -76,5 +46,7 @@ top.pulsecontroller_tb.uut.trig_pulse
 top.pulsecontroller_tb.uut.recv_pulse
 @1000200
 -pulses
+@22
+#{top.pulsecontroller_tb.uut.curr_dist[23:0]} top.pulsecontroller_tb.uut.curr_dist[23] top.pulsecontroller_tb.uut.curr_dist[22] top.pulsecontroller_tb.uut.curr_dist[21] top.pulsecontroller_tb.uut.curr_dist[20] top.pulsecontroller_tb.uut.curr_dist[19] top.pulsecontroller_tb.uut.curr_dist[18] top.pulsecontroller_tb.uut.curr_dist[17] top.pulsecontroller_tb.uut.curr_dist[16] top.pulsecontroller_tb.uut.curr_dist[15] top.pulsecontroller_tb.uut.curr_dist[14] top.pulsecontroller_tb.uut.curr_dist[13] top.pulsecontroller_tb.uut.curr_dist[12] top.pulsecontroller_tb.uut.curr_dist[11] top.pulsecontroller_tb.uut.curr_dist[10] top.pulsecontroller_tb.uut.curr_dist[9] top.pulsecontroller_tb.uut.curr_dist[8] top.pulsecontroller_tb.uut.curr_dist[7] top.pulsecontroller_tb.uut.curr_dist[6] top.pulsecontroller_tb.uut.curr_dist[5] top.pulsecontroller_tb.uut.curr_dist[4] top.pulsecontroller_tb.uut.curr_dist[3] top.pulsecontroller_tb.uut.curr_dist[2] top.pulsecontroller_tb.uut.curr_dist[1] top.pulsecontroller_tb.uut.curr_dist[0]
 [pattern_trace] 1
 [pattern_trace] 0

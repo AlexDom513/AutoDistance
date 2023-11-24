@@ -1,10 +1,20 @@
+-----------------------------------------------------------------------------------------------
+--    AlexDom513 --- 11/23/23
+-----------------------------------------------------------------------------------------------
+--    Module interacts with the A4988 Stepper Motor Drive board. The stepper state machine
+--    is used to monitor the current position of the stepper motor relative to a set 
+--    initial position. This is done so that the stepper motor never exceeds a defined
+--    range. The pulse state machine is used to interact with the A4988 board. The
+--    state machine sends pulses to increment the stepper motor and set its direction.
+-----------------------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity StepperController is
   generic (
-    TEST_EN       : boolean := true
+    TEST_EN       : boolean := TRUE
   );
   port (
     Clk           : in  std_logic;
@@ -46,8 +56,9 @@ begin
 
   ----------------------------------------------------------------------
   -- Stepper State Machine
-  -- Used to monitor/update the position counter of the stepper
   ----------------------------------------------------------------------
+  -- Used to monitor/update the position counter of the stepper
+
   stateMachine: process(Clk) is
   begin
     if (rising_edge(Clk)) then
@@ -108,8 +119,9 @@ begin
 
   ----------------------------------------------------------------------
   -- Pulse State Machine
-  -- Used to send out pulses that increment/decrement stepper position
   ----------------------------------------------------------------------
+  -- Used to send out pulses that increment/decrement stepper position
+
   process(Clk) is
   begin
     if (rising_edge(Clk)) then

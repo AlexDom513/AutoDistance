@@ -1,15 +1,26 @@
+-----------------------------------------------------------------------------------------------
+--    AlexDom513 --- 11/23/23
+-----------------------------------------------------------------------------------------------
+--    Module interacts with HC-SR04 by sending a trigger pulse and then processes the pulse
+--    returned from the sensor. We convert the duration of the received pulse (in us) to
+--    distance by multiplying by the speed of sound (cm/us) and dividing by 2 (we only care
+--    about the distance to travel one way, not the entire path).
+-----------------------------------------------------------------------------------------------
+--    Conversions:
+--      actual time (s) = (sRecv_Time)(cRecv_Count)(8 ns clock period when 125 MHz)
+--      calculated distance (cm) = (sRecv_Time)(cTime_to_Dist)
+----------------------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity PulseController is
   generic (
-
-    --initialized for use with 125 MHz clock (8 ns period), 8 ns * cConstant = target time
-    cTrig_Count : integer := 1500;        -- > 10 us trigger pulse
-    cRecv_Count : integer := 477;         -- ~2^-18 (s) receive resolution
-    cWait_Count : integer := 7500000;     -- 60 ms retransmit window
-    cPause_Count: integer := 7500000      -- 60 ms pause
+    cTrig_Count : natural := 1500;                  -- > 10 us trigger pulse
+    cRecv_Count : natural := 125;                   -- 1 us receive resolution
+    cWait_Count : natural := 7500000;               -- 60 ms retransmit window
+    cPause_Count: natural := 7500000                -- 60 ms pause
   );
   port (
     Clk             : in  std_logic;                --input clock
@@ -17,28 +28,29 @@ entity PulseController is
     Trig_Enable     : in  std_logic;                --enable/disable ultrasonic
     Recv_Pulse      : in  std_logic;                --recvieved pulse from ultrasonic
     Trig_Pulse      : out std_logic;                --trigger pulse sent to ultrasonic
-    Curr_Dist       : out unsigned(26 downto 0);    --(Q8.19) current distance 
+    Curr_Dist       : out unsigned(17 downto 0);    --(Q6.12) current distance (cm)
     Led0            : out std_logic;
     Led1            : out std_logic;
     Led2            : out std_logic;
     Led3            : out std_logic
-    );
+  );
 end PulseController;
 
 architecture Behavioral of PulseController is
 
   --constants
-  constant cTime_to_Dist  : unsigned(8 downto 0) := "101010111";  --(Q8.1) conversion factor, represents (speed of sound)/2 = 171.5 m/s
+  constant cTime_to_Dist  : unsigned(11 downto 0) := "000001000110";  --(Q0.12) conversion factor, represents (speed of sound)/2 = 0.0175 cm/s
 
-  --time increment
-  signal sRecv_Time       : unsigned(17 downto 0);                --(Q0.18) round-trip pulse travel time
-  signal ledRecv_Time     : unsigned(17 downto 0);
+  --data
+  signal sRecv_Time       : unsigned(11 downto 0);                    --(Q12.0) round-trip pulse travel time (us)
+  signal sCurr_Dist       : unsigned(23 downto 0);                    --(Q12.12) current distance (cm)
+  signal ledRecv_Time     : unsigned(11 downto 0);
 
   --counters
-  signal sTrig_Counter    : integer range 0 to cTrig_Count;
-  signal sWait_Counter    : integer range 0 to cWait_Count;
-  signal sRecv_Counter    : integer range 0 to cRecv_Count;     --replace all with unsigned!!!
-  signal sPause_Counter   : integer range 0 to cPause_Count;
+  signal sTrig_Counter    : natural range 0 to cTrig_Count;
+  signal sWait_Counter    : natural range 0 to cWait_Count;
+  signal sRecv_Counter    : natural range 0 to cRecv_Count;
+  signal sPause_Counter   : natural range 0 to cPause_Count;
 
   --state machine
   type tPulse_State is (IDLE, TRIG, ANTCP, RECV, PAUSE);
@@ -66,11 +78,16 @@ begin
     end if;
   end process;
 
+  --Establish format Q(6.12) for the ouptut distance
+  --Only need 6 integer bits because maximum track length is 50 cm 
+  Curr_Dist <= sCurr_Dist(17 downto 0);
+
   ----------------------------------------------------------------------
   -- PulseController State Machine
+  ----------------------------------------------------------------------
   -- creates stimulus pulse to start HC-SR04
   -- processes length of returned wavefrom to discern pulse travel time
-  ----------------------------------------------------------------------
+
   stateMachine: process(Clk) is
   begin
     if (rising_edge(Clk)) then
@@ -79,7 +96,7 @@ begin
       if (Rst = '1') then
         sState        <= IDLE;
         sRecv_Time    <= (others => '0');
-        Curr_Dist     <= (others => '0');
+        sCurr_Dist    <= (others => '0');
         Trig_Pulse    <= '0';
       else
         case sState is
@@ -122,7 +139,7 @@ begin
               sState <= ANTCP;
             end if;
         
-          --RECV state, recieve echo pulse and determine length, sRecv_Time incremented by 1 after ever cRecv_Count
+          --RECV state, recieve echo pulse and determine length, sRecv_Time incremented by 1 after every cRecv_Count
           when RECV =>
             if (Recv_Pulse = '1') then
               if (sRecv_Counter > cRecv_Count-1) then
@@ -132,7 +149,7 @@ begin
                 sRecv_Counter <= sRecv_Counter + 1;
               end if;
             else
-              Curr_Dist <= sRecv_Time * cTime_to_Dist;
+              sCurr_Dist <= sRecv_Time * cTime_to_Dist;
               ledRecv_Time <= sRecv_Time;
               sState <= PAUSE;
             end if;

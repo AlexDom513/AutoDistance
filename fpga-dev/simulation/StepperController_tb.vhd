@@ -18,10 +18,14 @@ architecture Behavioral of StepperController_tb is
 
 begin
     
-  --clock
+  ----------------------------------------
+  -- Clock
+  ----------------------------------------
   sClk <= not sClk after 4 ns;
 
-  --stimulus
+  ----------------------------------------
+  -- Stimulus
+  ----------------------------------------
   tbStim: process is
   begin
 
@@ -37,8 +41,10 @@ begin
     wait;
   end process;
 
-  --instantiate StepperController
-  UUT: entity work.StepperController
+  ----------------------------------------
+  -- DUT
+  ----------------------------------------
+  DUT: entity work.StepperController
   port map (
     Clk             => sClk,
     Rst             => sRst,
