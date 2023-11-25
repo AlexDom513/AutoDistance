@@ -29,10 +29,11 @@ end StepperController;
 architecture Behavioral of StepperController is
 
   --types
-  type tStepper_State is (SETUP, INCR, DECR, PAUSE);
+  type tStepper_State is (SETUP, INCR, DECR, RET, PAUSE);
   type tPulse_State is (IDLE, TRIG_H, TRIG_L, DONE);
 
   --constants
+  constant cPosition_Center           : unsigned(7 downto 0)  := x"32";
   constant cMax_Pulse_HIGH            : unsigned(20 downto 0) := to_unsigned(781250, 21);    
   constant cMax_Pulse_LOW             : unsigned(20 downto 0) := to_unsigned(1562500, 21); --together, constants yield period of 12.5 ms -> 80 Hz
   --constant cMax_Pulse_HIGH            : unsigned(20 downto 0) := to_unsigned(500, 21);    
@@ -64,18 +65,18 @@ begin
     if (rising_edge(Clk)) then
       if (Rst = '1') then
         sStepper_State    <= SETUP;
-        sPosition_Counter <= (others => '0');
+        sPosition_Counter <= cPosition_Center;   --initial position of 50
       else
 
         --Stepper Test
-        if (TEST_EN = true) then
+        if (TEST_EN = TRUE) then
           case sStepper_State is
 
-            --SETUP state, calibrate the position counter (bring ramp to lowered position)
+            --SETUP state, calibrate the position counter (bring ramp to flat position)
             when SETUP =>
               if (Init_Pos_Sel = '1') then
                 LED <= '1';
-                sPosition_Counter <= (others => '0');
+                sPosition_Counter <= cPosition_Center;
               else
                 LED <= '0';
                 sStepper_State <= INCR;
@@ -96,12 +97,24 @@ begin
             --DECR state, lower the stepper until the threshold is reached
             when DECR =>
               if (sPosition_Counter = 0) then
-                sStepper_State <= PAUSE;
+                sStepper_State <= RET;
               elsif (sPulse_State = IDLE) then
                 Dir_Sel <= '1';
                 sPulse_Trig <= '1';
               elsif (sPulse_State = DONE) then
                 sPosition_Counter <= sPosition_Counter - 1;
+                sPulse_Trig <= '0';
+              end if;
+
+            --RET state, return to the starting position by raising the stepper
+            when RET =>
+              if (sPosition_Counter = cPosition_Center) then
+                sStepper_State <= PAUSE;
+              elsif (sPulse_State = IDLE) then
+                Dir_Sel <= '0';
+                sPulse_Trig <= '1';
+              elsif (sPulse_State = DONE) then
+                sPosition_Counter <= sPosition_Counter + 1;
                 sPulse_Trig <= '0';
               end if;
 

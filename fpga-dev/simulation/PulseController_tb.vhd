@@ -67,16 +67,16 @@ begin
   -- DUT
   ----------------------------------------
   DUT: entity work.PulseController
-    port map (
-      Clk             => sClk,
-      Rst             => sRst,
-      Trig_Enable     => sTrig_Enable,
-      Recv_Pulse      => sRecv_Pulse,
-      Trig_Pulse      => sTrig_Pulse,
-      Curr_Dist       => open,
-      Led0            => sLed0,
-      Led1            => sLed1,
-      Led2            => sLed2,
-      Led3            => sLed3
-    );
+  port map (
+    Clk             => sClk,
+    Rst             => sRst,
+    Trig_Enable     => sTrig_Enable,
+    Recv_Pulse      => sRecv_Pulse,
+    Trig_Pulse      => sTrig_Pulse,
+    Curr_Dist       => open,
+    Led0            => sLed0,
+    Led1            => sLed1,
+    Led2            => sLed2,
+    Led3            => sLed3
+  );
 end Behavioral;

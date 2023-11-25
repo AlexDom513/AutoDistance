@@ -28,7 +28,7 @@ entity PulseController is
     Trig_Enable     : in  std_logic;                --enable/disable ultrasonic
     Recv_Pulse      : in  std_logic;                --recvieved pulse from ultrasonic
     Trig_Pulse      : out std_logic;                --trigger pulse sent to ultrasonic
-    Curr_Dist       : out unsigned(17 downto 0);    --(Q6.12) current distance (cm)
+    Curr_Dist       : out signed(18 downto 0);      --(Q7.12) current distance (cm)
     Led0            : out std_logic;
     Led1            : out std_logic;
     Led2            : out std_logic;
@@ -44,7 +44,7 @@ architecture Behavioral of PulseController is
   --data
   signal sRecv_Time       : unsigned(11 downto 0);                    --(Q12.0) round-trip pulse travel time (us)
   signal sCurr_Dist       : unsigned(23 downto 0);                    --(Q12.12) current distance (cm)
-  signal ledRecv_Time     : unsigned(11 downto 0);
+  signal sLed_Recv_Time   : unsigned(11 downto 0);
 
   --counters
   signal sTrig_Counter    : natural range 0 to cTrig_Count;
@@ -66,11 +66,11 @@ begin
       Led1 <= '0';
       Led2 <= '0';
       Led3 <= '0';
-      if (ledRecv_Time < 50) then
+      if (sLed_Recv_Time < 50) then
         Led0 <= '1';
-      elsif (ledRecv_Time < 100) then
+      elsif (sLed_Recv_Time < 100) then
         Led1 <= '1';
-      elsif (ledRecv_Time < 200) then
+      elsif (sLed_Recv_Time < 200) then
         Led2 <= '1';
       else
         Led3 <= '1';
@@ -78,9 +78,9 @@ begin
     end if;
   end process;
 
-  --Establish format Q(6.12) for the ouptut distance
-  --Only need 6 integer bits because maximum track length is 50 cm 
-  Curr_Dist <= sCurr_Dist(17 downto 0);
+  --Establish signed format Q(7.12) for the ouptut distance
+  --Only need 6 actual integer bits because maximum track length is 50 cm 
+  Curr_Dist <= signed('0' & sCurr_Dist(17 downto 0));
 
   ----------------------------------------------------------------------
   -- PulseController State Machine
@@ -150,7 +150,7 @@ begin
               end if;
             else
               sCurr_Dist <= sRecv_Time * cTime_to_Dist;
-              ledRecv_Time <= sRecv_Time;
+              sLed_Recv_Time <= sRecv_Time;
               sState <= PAUSE;
             end if;
 

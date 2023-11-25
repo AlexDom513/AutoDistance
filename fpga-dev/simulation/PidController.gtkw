@@ -1,0 +1,113 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sat Nov 25 03:24:24 2023
+[*]
+[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PidController.ghw"
+[dumpfile_mtime] "Sat Nov 25 02:47:05 2023"
+[dumpfile_size] 876913
+[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PidController.gtkw"
+[timestart] 3200000000
+[size] 2560 1369
+[pos] -1 -1
+*-29.164373 5299000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.pidcontroller_tb.
+[treeopen] top.pidcontroller_tb.dut.
+[sst_width] 265
+[signals_width] 315
+[sst_expanded] 1
+[sst_vpaned_height] 423
+@800200
+-system
+@28
+top.pidcontroller_tb.sclk
+top.pidcontroller_tb.srst
+@420
+top.pidcontroller_tb.dut.sstate
+@1000200
+-system
+@200
+-
+@800200
+-inputs
+@40000420
+[fpshift_count] 12
+#{top.pidcontroller_tb.scurr_dist[18:0]} top.pidcontroller_tb.scurr_dist[18] top.pidcontroller_tb.scurr_dist[17] top.pidcontroller_tb.scurr_dist[16] top.pidcontroller_tb.scurr_dist[15] top.pidcontroller_tb.scurr_dist[14] top.pidcontroller_tb.scurr_dist[13] top.pidcontroller_tb.scurr_dist[12] top.pidcontroller_tb.scurr_dist[11] top.pidcontroller_tb.scurr_dist[10] top.pidcontroller_tb.scurr_dist[9] top.pidcontroller_tb.scurr_dist[8] top.pidcontroller_tb.scurr_dist[7] top.pidcontroller_tb.scurr_dist[6] top.pidcontroller_tb.scurr_dist[5] top.pidcontroller_tb.scurr_dist[4] top.pidcontroller_tb.scurr_dist[3] top.pidcontroller_tb.scurr_dist[2] top.pidcontroller_tb.scurr_dist[1] top.pidcontroller_tb.scurr_dist[0]
+@28
+top.pidcontroller_tb.scurr_dist_valid
+@1000200
+-inputs
+@200
+-
+@800200
+-error
+@40000420
+[fpshift_count] 12
+#{top.pidcontroller_tb.dut.sdist_error[18:0]} top.pidcontroller_tb.dut.sdist_error[18] top.pidcontroller_tb.dut.sdist_error[17] top.pidcontroller_tb.dut.sdist_error[16] top.pidcontroller_tb.dut.sdist_error[15] top.pidcontroller_tb.dut.sdist_error[14] top.pidcontroller_tb.dut.sdist_error[13] top.pidcontroller_tb.dut.sdist_error[12] top.pidcontroller_tb.dut.sdist_error[11] top.pidcontroller_tb.dut.sdist_error[10] top.pidcontroller_tb.dut.sdist_error[9] top.pidcontroller_tb.dut.sdist_error[8] top.pidcontroller_tb.dut.sdist_error[7] top.pidcontroller_tb.dut.sdist_error[6] top.pidcontroller_tb.dut.sdist_error[5] top.pidcontroller_tb.dut.sdist_error[4] top.pidcontroller_tb.dut.sdist_error[3] top.pidcontroller_tb.dut.sdist_error[2] top.pidcontroller_tb.dut.sdist_error[1] top.pidcontroller_tb.dut.sdist_error[0]
+@22
+#{top.pidcontroller_tb.dut.sdist_error_d1[18:0]} top.pidcontroller_tb.dut.sdist_error_d1[18] top.pidcontroller_tb.dut.sdist_error_d1[17] top.pidcontroller_tb.dut.sdist_error_d1[16] top.pidcontroller_tb.dut.sdist_error_d1[15] top.pidcontroller_tb.dut.sdist_error_d1[14] top.pidcontroller_tb.dut.sdist_error_d1[13] top.pidcontroller_tb.dut.sdist_error_d1[12] top.pidcontroller_tb.dut.sdist_error_d1[11] top.pidcontroller_tb.dut.sdist_error_d1[10] top.pidcontroller_tb.dut.sdist_error_d1[9] top.pidcontroller_tb.dut.sdist_error_d1[8] top.pidcontroller_tb.dut.sdist_error_d1[7] top.pidcontroller_tb.dut.sdist_error_d1[6] top.pidcontroller_tb.dut.sdist_error_d1[5] top.pidcontroller_tb.dut.sdist_error_d1[4] top.pidcontroller_tb.dut.sdist_error_d1[3] top.pidcontroller_tb.dut.sdist_error_d1[2] top.pidcontroller_tb.dut.sdist_error_d1[1] top.pidcontroller_tb.dut.sdist_error_d1[0]
+@1000200
+-error
+@200
+-
+@800200
+-gains
+@40c00024
+[fpshift_count] 20
+#{top.pidcontroller_tb.dut.sp[31:0]} top.pidcontroller_tb.dut.sp[31] top.pidcontroller_tb.dut.sp[30] top.pidcontroller_tb.dut.sp[29] top.pidcontroller_tb.dut.sp[28] top.pidcontroller_tb.dut.sp[27] top.pidcontroller_tb.dut.sp[26] top.pidcontroller_tb.dut.sp[25] top.pidcontroller_tb.dut.sp[24] top.pidcontroller_tb.dut.sp[23] top.pidcontroller_tb.dut.sp[22] top.pidcontroller_tb.dut.sp[21] top.pidcontroller_tb.dut.sp[20] top.pidcontroller_tb.dut.sp[19] top.pidcontroller_tb.dut.sp[18] top.pidcontroller_tb.dut.sp[17] top.pidcontroller_tb.dut.sp[16] top.pidcontroller_tb.dut.sp[15] top.pidcontroller_tb.dut.sp[14] top.pidcontroller_tb.dut.sp[13] top.pidcontroller_tb.dut.sp[12] top.pidcontroller_tb.dut.sp[11] top.pidcontroller_tb.dut.sp[10] top.pidcontroller_tb.dut.sp[9] top.pidcontroller_tb.dut.sp[8] top.pidcontroller_tb.dut.sp[7] top.pidcontroller_tb.dut.sp[6] top.pidcontroller_tb.dut.sp[5] top.pidcontroller_tb.dut.sp[4] top.pidcontroller_tb.dut.sp[3] top.pidcontroller_tb.dut.sp[2] top.pidcontroller_tb.dut.sp[1] top.pidcontroller_tb.dut.sp[0]
+@28
+top.pidcontroller_tb.dut.sp[31]
+top.pidcontroller_tb.dut.sp[30]
+top.pidcontroller_tb.dut.sp[29]
+top.pidcontroller_tb.dut.sp[28]
+top.pidcontroller_tb.dut.sp[27]
+top.pidcontroller_tb.dut.sp[26]
+top.pidcontroller_tb.dut.sp[25]
+top.pidcontroller_tb.dut.sp[24]
+top.pidcontroller_tb.dut.sp[23]
+top.pidcontroller_tb.dut.sp[22]
+top.pidcontroller_tb.dut.sp[21]
+top.pidcontroller_tb.dut.sp[20]
+top.pidcontroller_tb.dut.sp[19]
+top.pidcontroller_tb.dut.sp[18]
+top.pidcontroller_tb.dut.sp[17]
+top.pidcontroller_tb.dut.sp[16]
+top.pidcontroller_tb.dut.sp[15]
+top.pidcontroller_tb.dut.sp[14]
+top.pidcontroller_tb.dut.sp[13]
+top.pidcontroller_tb.dut.sp[12]
+top.pidcontroller_tb.dut.sp[11]
+top.pidcontroller_tb.dut.sp[10]
+top.pidcontroller_tb.dut.sp[9]
+top.pidcontroller_tb.dut.sp[8]
+top.pidcontroller_tb.dut.sp[7]
+top.pidcontroller_tb.dut.sp[6]
+top.pidcontroller_tb.dut.sp[5]
+top.pidcontroller_tb.dut.sp[4]
+top.pidcontroller_tb.dut.sp[3]
+top.pidcontroller_tb.dut.sp[2]
+top.pidcontroller_tb.dut.sp[1]
+top.pidcontroller_tb.dut.sp[0]
+@41401204
+-group_end
+@40000420
+[fpshift_count] 20
+#{top.pidcontroller_tb.dut.si[31:0]} top.pidcontroller_tb.dut.si[31] top.pidcontroller_tb.dut.si[30] top.pidcontroller_tb.dut.si[29] top.pidcontroller_tb.dut.si[28] top.pidcontroller_tb.dut.si[27] top.pidcontroller_tb.dut.si[26] top.pidcontroller_tb.dut.si[25] top.pidcontroller_tb.dut.si[24] top.pidcontroller_tb.dut.si[23] top.pidcontroller_tb.dut.si[22] top.pidcontroller_tb.dut.si[21] top.pidcontroller_tb.dut.si[20] top.pidcontroller_tb.dut.si[19] top.pidcontroller_tb.dut.si[18] top.pidcontroller_tb.dut.si[17] top.pidcontroller_tb.dut.si[16] top.pidcontroller_tb.dut.si[15] top.pidcontroller_tb.dut.si[14] top.pidcontroller_tb.dut.si[13] top.pidcontroller_tb.dut.si[12] top.pidcontroller_tb.dut.si[11] top.pidcontroller_tb.dut.si[10] top.pidcontroller_tb.dut.si[9] top.pidcontroller_tb.dut.si[8] top.pidcontroller_tb.dut.si[7] top.pidcontroller_tb.dut.si[6] top.pidcontroller_tb.dut.si[5] top.pidcontroller_tb.dut.si[4] top.pidcontroller_tb.dut.si[3] top.pidcontroller_tb.dut.si[2] top.pidcontroller_tb.dut.si[1] top.pidcontroller_tb.dut.si[0]
+[fpshift_count] 20
+#{top.pidcontroller_tb.dut.sd[31:0]} top.pidcontroller_tb.dut.sd[31] top.pidcontroller_tb.dut.sd[30] top.pidcontroller_tb.dut.sd[29] top.pidcontroller_tb.dut.sd[28] top.pidcontroller_tb.dut.sd[27] top.pidcontroller_tb.dut.sd[26] top.pidcontroller_tb.dut.sd[25] top.pidcontroller_tb.dut.sd[24] top.pidcontroller_tb.dut.sd[23] top.pidcontroller_tb.dut.sd[22] top.pidcontroller_tb.dut.sd[21] top.pidcontroller_tb.dut.sd[20] top.pidcontroller_tb.dut.sd[19] top.pidcontroller_tb.dut.sd[18] top.pidcontroller_tb.dut.sd[17] top.pidcontroller_tb.dut.sd[16] top.pidcontroller_tb.dut.sd[15] top.pidcontroller_tb.dut.sd[14] top.pidcontroller_tb.dut.sd[13] top.pidcontroller_tb.dut.sd[12] top.pidcontroller_tb.dut.sd[11] top.pidcontroller_tb.dut.sd[10] top.pidcontroller_tb.dut.sd[9] top.pidcontroller_tb.dut.sd[8] top.pidcontroller_tb.dut.sd[7] top.pidcontroller_tb.dut.sd[6] top.pidcontroller_tb.dut.sd[5] top.pidcontroller_tb.dut.sd[4] top.pidcontroller_tb.dut.sd[3] top.pidcontroller_tb.dut.sd[2] top.pidcontroller_tb.dut.sd[1] top.pidcontroller_tb.dut.sd[0]
+@1000200
+-gains
+@200
+-
+@800200
+-angle
+@40000420
+[fpshift_count] 20
+#{top.pidcontroller_tb.dut.stheta[35:0]} top.pidcontroller_tb.dut.stheta[35] top.pidcontroller_tb.dut.stheta[34] top.pidcontroller_tb.dut.stheta[33] top.pidcontroller_tb.dut.stheta[32] top.pidcontroller_tb.dut.stheta[31] top.pidcontroller_tb.dut.stheta[30] top.pidcontroller_tb.dut.stheta[29] top.pidcontroller_tb.dut.stheta[28] top.pidcontroller_tb.dut.stheta[27] top.pidcontroller_tb.dut.stheta[26] top.pidcontroller_tb.dut.stheta[25] top.pidcontroller_tb.dut.stheta[24] top.pidcontroller_tb.dut.stheta[23] top.pidcontroller_tb.dut.stheta[22] top.pidcontroller_tb.dut.stheta[21] top.pidcontroller_tb.dut.stheta[20] top.pidcontroller_tb.dut.stheta[19] top.pidcontroller_tb.dut.stheta[18] top.pidcontroller_tb.dut.stheta[17] top.pidcontroller_tb.dut.stheta[16] top.pidcontroller_tb.dut.stheta[15] top.pidcontroller_tb.dut.stheta[14] top.pidcontroller_tb.dut.stheta[13] top.pidcontroller_tb.dut.stheta[12] top.pidcontroller_tb.dut.stheta[11] top.pidcontroller_tb.dut.stheta[10] top.pidcontroller_tb.dut.stheta[9] top.pidcontroller_tb.dut.stheta[8] top.pidcontroller_tb.dut.stheta[7] top.pidcontroller_tb.dut.stheta[6] top.pidcontroller_tb.dut.stheta[5] top.pidcontroller_tb.dut.stheta[4] top.pidcontroller_tb.dut.stheta[3] top.pidcontroller_tb.dut.stheta[2] top.pidcontroller_tb.dut.stheta[1] top.pidcontroller_tb.dut.stheta[0]
+@40000421
+[fpshift_count] 20
+#{top.pidcontroller_tb.dut.stheta_d1[35:0]} top.pidcontroller_tb.dut.stheta_d1[35] top.pidcontroller_tb.dut.stheta_d1[34] top.pidcontroller_tb.dut.stheta_d1[33] top.pidcontroller_tb.dut.stheta_d1[32] top.pidcontroller_tb.dut.stheta_d1[31] top.pidcontroller_tb.dut.stheta_d1[30] top.pidcontroller_tb.dut.stheta_d1[29] top.pidcontroller_tb.dut.stheta_d1[28] top.pidcontroller_tb.dut.stheta_d1[27] top.pidcontroller_tb.dut.stheta_d1[26] top.pidcontroller_tb.dut.stheta_d1[25] top.pidcontroller_tb.dut.stheta_d1[24] top.pidcontroller_tb.dut.stheta_d1[23] top.pidcontroller_tb.dut.stheta_d1[22] top.pidcontroller_tb.dut.stheta_d1[21] top.pidcontroller_tb.dut.stheta_d1[20] top.pidcontroller_tb.dut.stheta_d1[19] top.pidcontroller_tb.dut.stheta_d1[18] top.pidcontroller_tb.dut.stheta_d1[17] top.pidcontroller_tb.dut.stheta_d1[16] top.pidcontroller_tb.dut.stheta_d1[15] top.pidcontroller_tb.dut.stheta_d1[14] top.pidcontroller_tb.dut.stheta_d1[13] top.pidcontroller_tb.dut.stheta_d1[12] top.pidcontroller_tb.dut.stheta_d1[11] top.pidcontroller_tb.dut.stheta_d1[10] top.pidcontroller_tb.dut.stheta_d1[9] top.pidcontroller_tb.dut.stheta_d1[8] top.pidcontroller_tb.dut.stheta_d1[7] top.pidcontroller_tb.dut.stheta_d1[6] top.pidcontroller_tb.dut.stheta_d1[5] top.pidcontroller_tb.dut.stheta_d1[4] top.pidcontroller_tb.dut.stheta_d1[3] top.pidcontroller_tb.dut.stheta_d1[2] top.pidcontroller_tb.dut.stheta_d1[1] top.pidcontroller_tb.dut.stheta_d1[0]
+@1000200
+-angle
+[pattern_trace] 1
+[pattern_trace] 0

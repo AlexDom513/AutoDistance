@@ -1,16 +1,22 @@
 v 4
-file . "simulation/PulseController_tb.vhd" "4f1712579213bb72c1e7441c46d81e00cf0d768f" "20231124040821.170":
-  entity pulsecontroller_tb at 1( 0) + 0 on 523;
-  architecture behavioral of pulsecontroller_tb at 8( 118) + 0 on 524;
-file . "source/PulseController.vhd" "f6b796d1e55ed25a57a36d4aa973c047b482ad81" "20231124040821.145":
-  entity pulsecontroller at 14( 906) + 0 on 517;
-  architecture behavioral of pulsecontroller at 41( 2027) + 0 on 518;
-file . "source/autoDistance_top.vhd" "a36570c906fe96643d4cc8c2c27130956b723e2a" "20231124040821.146":
-  entity autodistance_top at 1( 0) + 0 on 521;
-  architecture behavioral of autodistance_top at 23( 678) + 0 on 522;
-file . "source/StepperController.vhd" "14f74504173d87b9f7ca5e6748f94cf049dcf42a" "20231124040821.145":
-  entity steppercontroller at 1( 0) + 0 on 519;
-  architecture behavioral of steppercontroller at 19( 416) + 0 on 520;
-file . "simulation/StepperController_tb.vhd" "031d667f3c6c96917e7ca59d1cc9a60bcee861f5" "20231124040821.170":
-  entity steppercontroller_tb at 1( 0) + 0 on 525;
-  architecture behavioral of steppercontroller_tb at 8( 129) + 0 on 526;
+file . "simulation/PidController_tb.vhd" "f0d99b3da7feb3c54a82b27030c6fefe7d55889f" "20231125041959.844":
+  entity pidcontroller_tb at 1( 0) + 0 on 721;
+  architecture behavioral of pidcontroller_tb at 9( 148) + 0 on 722;
+file . "source/PidController.vhd" "70146abd7d7b2c6ce8274952b71f82e415000743" "20231125041959.817":
+  entity pidcontroller at 7( 402) + 0 on 713;
+  architecture behavioral of pidcontroller at 20( 708) + 0 on 714;
+file . "simulation/StepperController_tb.vhd" "708ef57202ef994e2261d5abea20fdd51d2a52c4" "20231125041959.844":
+  entity steppercontroller_tb at 1( 0) + 0 on 723;
+  architecture behavioral of steppercontroller_tb at 8( 129) + 0 on 724;
+file . "source/StepperController.vhd" "74119eafbf8c0b0e9c625a0a6909da2d4fa38f59" "20231125041959.817":
+  entity steppercontroller at 11( 763) + 0 on 715;
+  architecture behavioral of steppercontroller at 29( 1179) + 0 on 716;
+file . "source/autoDistance_top.vhd" "9e3c55cb3dc08cac38c65e4298df11e46e39ff2b" "20231125041959.818":
+  entity autodistance_top at 21( 1154) + 0 on 717;
+  architecture behavioral of autodistance_top at 43( 1836) + 0 on 718;
+file . "source/PulseController.vhd" "d63d4027f3c0244be4a27528d306ff2c8f74d12b" "20231125041959.816":
+  entity pulsecontroller at 14( 919) + 0 on 711;
+  architecture behavioral of pulsecontroller at 39( 1987) + 0 on 712;
+file . "simulation/PulseController_tb.vhd" "c9b290f152f42abd52d371bcc35fc0f49709aeed" "20231125041959.843":
+  entity pulsecontroller_tb at 1( 0) + 0 on 719;
+  architecture behavioral of pulsecontroller_tb at 8( 118) + 0 on 720;

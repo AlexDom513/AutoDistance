@@ -16,6 +16,15 @@ def binary_fraction_to_decimal(binary_fraction):
 	return decimal_fraction
 
 #convert decimal to fixed point binary
-Q1 = FixedPoint(0.01715, signed=False, m=0, n=12, overflow_alert='error', str_base=2)
+Q1 = FixedPoint(1.8, signed=False, m=4, n=8, overflow_alert='error', str_base=2)
 print(Q1.qformat)
 print(str(Q1))
+print('\n')
+
+#fixed point addition/subtraction
+x = FixedPoint(1.5, m=6, n=12, signed=1)
+y = FixedPoint(8, m=6, n=12, signed=1)
+a = x - y
+print(f'  {x:q}\n- {y:q}\n------\n {a:q}')
+print(float(a))
+print('\n')

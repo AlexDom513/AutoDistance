@@ -19,10 +19,10 @@ ITERSKIP = 1
 INITIAL_X = 0                   #in m, initial displacement of cart
 INITIAL_VX = 0                  #in m/s, initial velocity of cart
 INITIAL_THETA = 0               #in degrees, initial angle of ram
-MAX_THETA = 13                  #in degrees with initial track layout
+MAX_THETA = 6.379               #in degrees with initial track layout
 
 #setpoint we are targeting
-SETPOINT = 0.4                  #~40 cm
+SETPOINT = 0.25                  #~25 cm
 
 #physics params
 MASS = 0.1                      #light cart
