@@ -8,11 +8,11 @@ SOURCES 				= $(SOURCE_DIR)PulseController.vhd $(SOURCE_DIR)PidController.vhd $(
 SIM_DIR					= simulation/
 SIM_SOURCES 		= $(SIM_DIR)PulseController_tb.vhd $(SIM_DIR)PidController_tb.vhd $(SIM_DIR)StepperController_tb.vhd
 
-SELECTION  			= PidController
+SELECTION  			= PulseController
 TOP_ENTITY			= $(SELECTION)_tb
 WORKSPACE_FILE  = $(SIM_DIR)$(SELECTION).gtkw
 GHW_FILE 				= $(SIM_DIR)$(SELECTION).ghw
-SIM_TIME 				= 5ms
+SIM_TIME 				= 3ms
 
 all: build sim gtk
 

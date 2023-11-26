@@ -74,9 +74,10 @@ begin
     Recv_Pulse      => sRecv_Pulse,
     Trig_Pulse      => sTrig_Pulse,
     Curr_Dist       => open,
-    Led0            => sLed0,
-    Led1            => sLed1,
-    Led2            => sLed2,
-    Led3            => sLed3
+    Curr_Dist_Valid => open
+    -- Led0            => sLed0,
+    -- Led1            => sLed1,
+    -- Led2            => sLed2,
+    -- Led3            => sLed3
   );
 end Behavioral;

@@ -29,6 +29,7 @@ entity PulseController is
     Recv_Pulse      : in  std_logic;                --recvieved pulse from ultrasonic
     Trig_Pulse      : out std_logic;                --trigger pulse sent to ultrasonic
     Curr_Dist       : out signed(18 downto 0);      --(Q7.12) current distance (cm)
+    Curr_Dist_Valid : out std_logic;
     Led0            : out std_logic;
     Led1            : out std_logic;
     Led2            : out std_logic;
@@ -66,11 +67,11 @@ begin
       Led1 <= '0';
       Led2 <= '0';
       Led3 <= '0';
-      if (sLed_Recv_Time < 50) then
+      if (sLed_Recv_Time < 500) then
         Led0 <= '1';
-      elsif (sLed_Recv_Time < 100) then
+      elsif (sLed_Recv_Time < 1000) then
         Led1 <= '1';
-      elsif (sLed_Recv_Time < 200) then
+      elsif (sLed_Recv_Time < 2000) then
         Led2 <= '1';
       else
         Led3 <= '1';
@@ -94,10 +95,11 @@ begin
 
       --reset logic, state machine to IDLE, output sRecv_Time to zero, disable trigger pulse
       if (Rst = '1') then
-        sState        <= IDLE;
-        sRecv_Time    <= (others => '0');
-        sCurr_Dist    <= (others => '0');
-        Trig_Pulse    <= '0';
+        sState            <= IDLE;
+        sRecv_Time        <= (others => '0');
+        sCurr_Dist        <= (others => '0');
+        Trig_Pulse        <= '0';
+        Curr_Dist_Valid   <= '0';
       else
         case sState is
           
@@ -150,12 +152,14 @@ begin
               end if;
             else
               sCurr_Dist <= sRecv_Time * cTime_to_Dist;
+              Curr_Dist_Valid <= '1';
               sLed_Recv_Time <= sRecv_Time;
               sState <= PAUSE;
             end if;
 
           --PAUSE state, allow minimum of 60 ms to prevent trigger signal from affecting echo
           when PAUSE =>
+            Curr_Dist_Valid <= '0';
             if (sPause_Counter < cPause_Count-1) then
               sPause_Counter <= sPause_Counter + 1;
               sState <= PAUSE;

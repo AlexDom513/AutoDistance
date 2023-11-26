@@ -1,6 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use std.textio.all;
+use ieee.numeric_std.all;
 
 entity StepperController_tb is
 end StepperController_tb;
@@ -15,6 +15,7 @@ architecture Behavioral of StepperController_tb is
   signal sInit_Pos_Sel  : std_logic := '1';
   signal sDir_Sel       : std_logic;
   signal sStep_Pulse    : std_logic;
+  signal sPID_Postion   : signed(35 downto 0);
 
 begin
     
@@ -51,6 +52,7 @@ begin
     Init_Pos_Sel    => sInit_Pos_Sel,
     Dir_Sel         => sDir_Sel,
     Step_Pulse      => sStep_Pulse,
-    LED             => open
+    --LED             => open,
+    PID_Postion     => sPID_Postion
   );
 end Behavioral;

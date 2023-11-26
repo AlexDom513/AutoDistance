@@ -13,17 +13,19 @@ entity PidController is
     Clk               : in  std_logic;
     Rst               : in  std_logic;
     Curr_Dist         : in  signed(18 downto 0);
-    Curr_Dist_Valid   : in  std_logic
+    Curr_Dist_Valid   : in  std_logic;
+    PID_Postion       : out signed(35 downto 0)
   );
 end PidController;
 
 architecture Behavioral of PidController is
 
   --constants
-  constant cKp            : signed(12 downto 0) := "0001000000000";       --(Q5.8), (2)
-  constant cKi            : signed(12 downto 0) := "0000000001101";       --(Q5.8), (0.05)
-  constant cKd            : signed(12 downto 0) := "0000111001101";       --(Q5.8), (1.8)
+  constant cKp            : signed(12 downto 0) := "00010" & "00000000";  --(Q5.8), (2)
+  constant cKi            : signed(12 downto 0) := "00000" & "00000000";  --(Q5.8), (0)
+  constant cKd            : signed(12 downto 0) := "00000" & "00000000";  --(Q5.8), (0)
   constant cTarget_Dist   : signed(18 downto 0) := "0011001" & x"000";    --(Q7.12) target distance = 25.0 cm
+  constant cDeg_Steps     : signed(6 downto 0)  := "0100100";             --(Q1.6) (1/1.8) = .5555
 
   --data
   signal sCurr_Dist       : signed(18 downto 0);                          --(Q7.12)  current distance to cart
@@ -50,6 +52,7 @@ begin
       if (Rst = '1') then
         sDist_Error     <= (others => '0');
         sDist_Error_d1  <= (others => '0');
+        PID_Postion     <= (others => '0');
         sTheta          <= (others => '0');
         sTheta_d1       <= (others => '0');
         sState          <= IDLE;
@@ -78,8 +81,8 @@ begin
 
           --RES state, compute result
           when RES =>
-            sTheta    <= sTheta_d1 + sP + sI + sD;
-            sTheta_d1 <= sTheta;
+            PID_Postion    <= resize(sP * cDeg_Steps, PID_Postion'length);--=sTheta_d1 + sP + sI + sD;
+            --sTheta_d1 <= sTheta;
             sState    <= IDLE;
         end case;
       end if;
