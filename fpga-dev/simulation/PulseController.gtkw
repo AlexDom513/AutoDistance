@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Fri Nov 24 20:50:41 2023
+[*] Sun Nov 26 08:19:50 2023
 [*]
 [dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.ghw"
-[dumpfile_mtime] "Fri Nov 24 20:45:38 2023"
-[dumpfile_size] 210795
+[dumpfile_mtime] "Sun Nov 26 08:19:00 2023"
+[dumpfile_size] 10364489
 [savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.gtkw"
 [timestart] 0
 [size] 2560 1369
 [pos] -1 -1
-*-33.303127 60880000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-34.947041 53400000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.pulsecontroller_tb.
 [treeopen] top.pulsecontroller_tb.dut.
@@ -26,25 +26,28 @@ top.pulsecontroller_tb.srst
 top.pulsecontroller_tb.dut.sstate
 @1000200
 -system
+@200
+-
 @800200
 -measurements
-@24
+@40000420
 [color] 2
-top.pulsecontroller_tb.stime
-@22
-[color] 2
+[fpshift_count] 12
 #{top.pulsecontroller_tb.dut.curr_dist[18:0]} top.pulsecontroller_tb.dut.curr_dist[18] top.pulsecontroller_tb.dut.curr_dist[17] top.pulsecontroller_tb.dut.curr_dist[16] top.pulsecontroller_tb.dut.curr_dist[15] top.pulsecontroller_tb.dut.curr_dist[14] top.pulsecontroller_tb.dut.curr_dist[13] top.pulsecontroller_tb.dut.curr_dist[12] top.pulsecontroller_tb.dut.curr_dist[11] top.pulsecontroller_tb.dut.curr_dist[10] top.pulsecontroller_tb.dut.curr_dist[9] top.pulsecontroller_tb.dut.curr_dist[8] top.pulsecontroller_tb.dut.curr_dist[7] top.pulsecontroller_tb.dut.curr_dist[6] top.pulsecontroller_tb.dut.curr_dist[5] top.pulsecontroller_tb.dut.curr_dist[4] top.pulsecontroller_tb.dut.curr_dist[3] top.pulsecontroller_tb.dut.curr_dist[2] top.pulsecontroller_tb.dut.curr_dist[1] top.pulsecontroller_tb.dut.curr_dist[0]
 [color] 2
+[fpshift_count] 12
 #{top.pulsecontroller_tb.dut.scurr_dist[23:0]} top.pulsecontroller_tb.dut.scurr_dist[23] top.pulsecontroller_tb.dut.scurr_dist[22] top.pulsecontroller_tb.dut.scurr_dist[21] top.pulsecontroller_tb.dut.scurr_dist[20] top.pulsecontroller_tb.dut.scurr_dist[19] top.pulsecontroller_tb.dut.scurr_dist[18] top.pulsecontroller_tb.dut.scurr_dist[17] top.pulsecontroller_tb.dut.scurr_dist[16] top.pulsecontroller_tb.dut.scurr_dist[15] top.pulsecontroller_tb.dut.scurr_dist[14] top.pulsecontroller_tb.dut.scurr_dist[13] top.pulsecontroller_tb.dut.scurr_dist[12] top.pulsecontroller_tb.dut.scurr_dist[11] top.pulsecontroller_tb.dut.scurr_dist[10] top.pulsecontroller_tb.dut.scurr_dist[9] top.pulsecontroller_tb.dut.scurr_dist[8] top.pulsecontroller_tb.dut.scurr_dist[7] top.pulsecontroller_tb.dut.scurr_dist[6] top.pulsecontroller_tb.dut.scurr_dist[5] top.pulsecontroller_tb.dut.scurr_dist[4] top.pulsecontroller_tb.dut.scurr_dist[3] top.pulsecontroller_tb.dut.scurr_dist[2] top.pulsecontroller_tb.dut.scurr_dist[1] top.pulsecontroller_tb.dut.scurr_dist[0]
+@24
 [color] 2
 #{top.pulsecontroller_tb.dut.srecv_time[11:0]} top.pulsecontroller_tb.dut.srecv_time[11] top.pulsecontroller_tb.dut.srecv_time[10] top.pulsecontroller_tb.dut.srecv_time[9] top.pulsecontroller_tb.dut.srecv_time[8] top.pulsecontroller_tb.dut.srecv_time[7] top.pulsecontroller_tb.dut.srecv_time[6] top.pulsecontroller_tb.dut.srecv_time[5] top.pulsecontroller_tb.dut.srecv_time[4] top.pulsecontroller_tb.dut.srecv_time[3] top.pulsecontroller_tb.dut.srecv_time[2] top.pulsecontroller_tb.dut.srecv_time[1] top.pulsecontroller_tb.dut.srecv_time[0]
 @1000200
 -measurements
+@200
+-
 @800200
 -pulses
 @28
 top.pulsecontroller_tb.dut.trig_pulse
-@29
 top.pulsecontroller_tb.dut.recv_pulse
 @1000200
 -pulses

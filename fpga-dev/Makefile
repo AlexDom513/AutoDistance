@@ -12,7 +12,7 @@ SELECTION  			= PulseController
 TOP_ENTITY			= $(SELECTION)_tb
 WORKSPACE_FILE  = $(SIM_DIR)$(SELECTION).gtkw
 GHW_FILE 				= $(SIM_DIR)$(SELECTION).ghw
-SIM_TIME 				= 3ms
+SIM_TIME 				= 20ms
 
 all: build sim gtk
 

@@ -38,8 +38,8 @@ architecture Behavioral of StepperController is
   constant cPosition_Center           : signed(11 downto 0)   := x"032";
   --constant cMax_Pulse_HIGH            : unsigned(20 downto 0) := to_unsigned(781250, 21);    
   --constant cMax_Pulse_LOW             : unsigned(20 downto 0) := to_unsigned(1562500, 21); --together, constants yield period of 12.5 ms -> 80 Hz
-  constant cMax_Pulse_HIGH            : unsigned(29 downto 0) := to_unsigned(12500000, 30);    
-  constant cMax_Pulse_LOW             : unsigned(29 downto 0) := to_unsigned(25000000, 30);
+  constant cMax_Pulse_HIGH            : unsigned(29 downto 0) := to_unsigned(1250000, 30);    
+  constant cMax_Pulse_LOW             : unsigned(29 downto 0) := to_unsigned(2500000, 30);
 
   --control
   signal sPulse_Trig                  : std_logic;
@@ -50,9 +50,9 @@ architecture Behavioral of StepperController is
   signal sPulse_Duration_Counter      : unsigned(29 downto 0);
 
   --state machines
-  signal sStepper_State               : tStepper_State := SETUP;
+  signal sStepper_State               : tStepper_State      := SETUP;
   signal sStepper_State_TEST          : tStepper_State_TEST := SETUP;
-  signal sPulse_State                 : tPulse_State := IDLE;
+  signal sPulse_State                 : tPulse_State        := IDLE;
 
 begin
 
@@ -153,22 +153,22 @@ begin
 
             --INCR state, raise ramp
             when INCR =>
-              if (sPosition_Counter = sPID_Postion or sPosition_Counter > 60) then --set hard limit of 60 steps
-                sStepper_State <= PAUSE;
-              elsif (sPulse_State = IDLE) then
-                Dir_Sel <= '0';
-                sPulse_Trig <= '1';
-              elsif (sPulse_State = DONE) then
-                sPosition_Counter <= sPosition_Counter + 1;
-                sPulse_Trig <= '0';
-              end if;
-            
-            --DECR state, lower ramp
-            when DECR =>
-              if (sPosition_Counter = sPID_Postion or sPosition_Counter < -60) then --set hard limit of 60 steps
+              if (sPosition_Counter = sPID_Postion or sPosition_Counter > 30) then --set hard limit of 30 steps
                 sStepper_State <= PAUSE;
               elsif (sPulse_State = IDLE) then
                 Dir_Sel <= '1';
+                sPulse_Trig <= '1';
+              elsif (sPulse_State = DONE) then
+                sPosition_Counter <= sPosition_Counter + 1;                                                                   --IDEA: MAKE A RANGE FOR THE CONDITION, allow certain offset away from sPID_Position
+                sPulse_Trig <= '0';
+              end if;
+
+            --DECR state, lower ramp
+            when DECR =>
+              if (sPosition_Counter = sPID_Postion or sPosition_Counter < -30) then --set hard limit of 30 steps
+                sStepper_State <= PAUSE;
+              elsif (sPulse_State = IDLE) then
+                Dir_Sel <= '0';
                 sPulse_Trig <= '1';
               elsif (sPulse_State = DONE) then
                 sPosition_Counter <= sPosition_Counter - 1;
@@ -184,6 +184,7 @@ begin
   -- Pulse State Machine
   ----------------------------------------------------------------------
   -- Used to send out pulses that increment/decrement stepper position
+  -- Only increments/decrements by 1 step
 
   process(Clk) is
   begin

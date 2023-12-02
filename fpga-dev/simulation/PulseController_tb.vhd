@@ -1,31 +1,28 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use std.textio.all;
+use ieee.numeric_std.all;
 
 entity PulseController_tb is
 end PulseController_tb;
 
 architecture Behavioral of PulseController_tb is
 
-  --simulation
-  signal sTime          : time := 0.05831 ms;
-
   --system
   signal sClk           : std_logic := '0';
   signal sRst           : std_logic := '1';
 
+  --simulation
+  signal sTime          : time := 10 us;
+
   --selects
   signal sTrig_Enable   : std_logic := '0';
 
-  --pulse
+  --pulses
   signal sTrig_Pulse    : std_logic := '0';
   signal sRecv_Pulse    : std_logic := '0';
 
-  --outputs
-  signal sLed0          : std_logic;
-  signal sLed1          : std_logic;
-  signal sLed2          : std_logic;
-  signal sLed3          : std_logic;
+  --data
+  signal sCurr_Dist     : signed(18 downto 0);
 
 begin
     
@@ -49,14 +46,15 @@ begin
     --begin stim
     sTrig_Enable <= '1';
 
-    --wait for trigger pulse to be sent by state maching, allow for pulse travel time
-    wait until sTrig_Pulse = '1';
-    wait for 100 ns;
-
-    --control the duration of Recv_Pulse in simulation to affect Recv_Time
-    sRecv_Pulse <= '1';               --pulse return
-    wait for sTime;                   --wait for new pulse duration
-    sRecv_Pulse <= '0';               --terminate pulse
+    --wait for trigger pulse, control duration of Recv_Pulse to affect simulation
+    for i in 1 to 100 loop
+      wait until sTrig_Pulse = '1';
+      wait until sTrig_Pulse = '0';
+      sRecv_Pulse <= '1';               --pulse return
+      wait for sTime;                   --wait for pulse duration
+      sTime <= sTime + 10 us;           --update pulse duration
+      sRecv_Pulse <= '0';               --terminate pulse
+    end loop;
 
     --end stim
     sTrig_Enable <= '0';
@@ -73,11 +71,11 @@ begin
     Trig_Enable     => sTrig_Enable,
     Recv_Pulse      => sRecv_Pulse,
     Trig_Pulse      => sTrig_Pulse,
-    Curr_Dist       => open,
-    Curr_Dist_Valid => open
-    -- Led0            => sLed0,
-    -- Led1            => sLed1,
-    -- Led2            => sLed2,
-    -- Led3            => sLed3
+    Curr_Dist       => sCurr_Dist,
+    Curr_Dist_Valid => open,
+    Led0            => open,
+    Led1            => open,
+    Led2            => open,
+    Led3            => open
   );
 end Behavioral;

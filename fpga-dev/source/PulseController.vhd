@@ -7,7 +7,7 @@
 --    about the distance to travel one way, not the entire path).
 -----------------------------------------------------------------------------------------------
 --    Conversions:
---      actual time (s) = (sRecv_Time)(cRecv_Count)(8 ns clock period when 125 MHz)
+--      actual time (s) = (sRecv_Time)(gRecv_Count)(8 ns clock period when 125 MHz)
 --      calculated distance (cm) = (sRecv_Time)(cTime_to_Dist)
 ----------------------------------------------------------------------------------------------
 
@@ -17,10 +17,10 @@ use ieee.numeric_std.all;
 
 entity PulseController is
   generic (
-    cTrig_Count : natural := 1500;                  -- > 10 us trigger pulse
-    cRecv_Count : natural := 125;                   -- 1 us receive resolution
-    cWait_Count : natural := 7500000;               -- 60 ms retransmit window
-    cPause_Count: natural := 7500000                -- 60 ms pause
+    gTrig_Count : natural := 1500;                  -- > 10 us trigger pulse
+    gRecv_Count : natural := 125;                   -- 1 us receive resolution
+    gWait_Count : natural := 7500000;               -- 60 ms retransmit window      --(TEST ONLY with 1250)
+    gPause_Count: natural := 7500000                -- 60 ms pause                  --(TEST ONLY with 1250)
   );
   port (
     Clk             : in  std_logic;                --input clock
@@ -48,10 +48,10 @@ architecture Behavioral of PulseController is
   signal sLed_Recv_Time   : unsigned(11 downto 0);
 
   --counters
-  signal sTrig_Counter    : natural range 0 to cTrig_Count;
-  signal sWait_Counter    : natural range 0 to cWait_Count;
-  signal sRecv_Counter    : natural range 0 to cRecv_Count;
-  signal sPause_Counter   : natural range 0 to cPause_Count;
+  signal sTrig_Counter    : natural range 0 to gTrig_Count;
+  signal sWait_Counter    : natural range 0 to gWait_Count;
+  signal sRecv_Counter    : natural range 0 to gRecv_Count;
+  signal sPause_Counter   : natural range 0 to gPause_Count;
 
   --state machine
   type tPulse_State is (IDLE, TRIG, ANTCP, RECV, PAUSE);
@@ -59,6 +59,16 @@ architecture Behavioral of PulseController is
 
 begin
 
+  ----------------------------------------------------------------------
+  -- Distance Output
+  ----------------------------------------------------------------------
+  --Establish signed format Q(7.12) for the ouptut distance
+  --Only need 6 actual integer bits because maximum track length is 50 cm 
+  Curr_Dist <= signed('0' & sCurr_Dist(17 downto 0));
+
+  ----------------------------------------------------------------------
+  -- LED Output
+  ----------------------------------------------------------------------
   --used for on-board development/debugging
   ledIndicator: process(Clk) is
   begin
@@ -78,10 +88,6 @@ begin
       end if;
     end if;
   end process;
-
-  --Establish signed format Q(7.12) for the ouptut distance
-  --Only need 6 actual integer bits because maximum track length is 50 cm 
-  Curr_Dist <= signed('0' & sCurr_Dist(17 downto 0));
 
   ----------------------------------------------------------------------
   -- PulseController State Machine
@@ -105,7 +111,7 @@ begin
           
           --IDLE state, prepare to interact with ultrasonic module (perform resets), only proceed if Trig_Enable = '1'
           when IDLE =>
-            sRecv_Time     <= (others=>'0');
+            sRecv_Time     <= (others => '0');
             sTrig_Counter  <= 0;
             sWait_Counter  <= 0;
             sRecv_Counter  <= 0;
@@ -118,7 +124,7 @@ begin
 
           --TRIG state, send 10 us pulse (assuming 125 MHz clk), then proceed to ANTCP state
           when TRIG =>
-            if (sTrig_Counter < cTrig_Count-1) then 
+            if (sTrig_Counter < gTrig_Count-1) then 
               Trig_Pulse <= '1';
               sTrig_Counter <= sTrig_Counter + 1;
               sState <= TRIG;
@@ -133,7 +139,7 @@ begin
             if (Recv_Pulse = '1') then
               sWait_Counter <= 0;
               sState <= RECV;
-            elsif (sWait_Counter > cWait_Count-1) then
+            elsif (sWait_Counter > gWait_Count-1) then
               sWait_Counter <= 0;
               sState <= TRIG;
             else
@@ -141,10 +147,10 @@ begin
               sState <= ANTCP;
             end if;
         
-          --RECV state, recieve echo pulse and determine length, sRecv_Time incremented by 1 after every cRecv_Count
+          --RECV state, recieve echo pulse and determine length, sRecv_Time incremented by 1 after every gRecv_Count
           when RECV =>
             if (Recv_Pulse = '1') then
-              if (sRecv_Counter > cRecv_Count-1) then
+              if (sRecv_Counter > gRecv_Count-1) then
                 sRecv_Counter <= 0;
                 sRecv_Time <= sRecv_Time + 1;
               else
@@ -160,7 +166,7 @@ begin
           --PAUSE state, allow minimum of 60 ms to prevent trigger signal from affecting echo
           when PAUSE =>
             Curr_Dist_Valid <= '0';
-            if (sPause_Counter < cPause_Count-1) then
+            if (sPause_Counter < gPause_Count-1) then
               sPause_Counter <= sPause_Counter + 1;
               sState <= PAUSE;
             else

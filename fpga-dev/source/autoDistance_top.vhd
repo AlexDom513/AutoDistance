@@ -30,7 +30,7 @@ entity autoDistance_top is
     Dir_Sel           : out std_logic;
     Step_Pulse        : out std_logic;
     --LED               : out std_logic;
-    --Trig_Enable       : in  std_logic;
+    Trig_Enable       : in  std_logic;
     Recv_Pulse        : in  std_logic;
     Trig_Pulse        : out std_logic;
     Led0              : out std_logic;
@@ -46,7 +46,6 @@ architecture Behavioral of autoDistance_top is
   signal sCurr_Dist       : signed(18 downto 0);
   signal sCurr_Dist_Valid : std_logic;
   signal sPID_Postion     : signed(35 downto 0);
-  signal sTrig_Enable     : std_logic := '1';
 
 begin
 
@@ -54,7 +53,7 @@ begin
   port map (
     Clk             => Clk,
     Rst             => Rst,
-    Trig_Enable     => sTrig_Enable,--Trig_Enable,
+    Trig_Enable     => Trig_Enable,
     Recv_Pulse      => Recv_Pulse,
     Trig_Pulse      => Trig_Pulse,
     Curr_Dist       => sCurr_Dist,
