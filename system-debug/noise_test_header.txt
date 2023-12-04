@@ -1,0 +1,18 @@
+#Information for noise_test.csv
+#Digilent WaveForms Oscilloscope Acquisition
+#Device Name: Discovery2
+#Serial Number: SN:210321B3DA32
+#Date Time: 2023-12-03 20:19:33.721
+#Sample rate: 1253.01Hz
+#Samples: 42643
+#Trigger: Source: Channel 1 Type: Window Condition: Exiting Level: 1.00592 V Length: 0 s Hyst.: 10 mV HoldOff: 5 us
+#Channel 1: Range: 2 V/div Offset: 0 V Attenuation: 1 X Sample Mode: Average
+#Power Supplies: ON
+#Positive Supply: ON
+#Voltage: 5 V
+#Negative Supply: OFF
+#Voltage: -1 V
+
+#NOTES:
+#For the core motor pulse signal we see the following: fundamental @ 50 Hz, 3rd harmonic @ 150 Hz, ...
+#Thus, other spikes perhaps can be attributed to noise in the signal
