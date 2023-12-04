@@ -1,18 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Wed Nov 15 05:34:47 2023
+[*] Mon Dec 04 01:06:37 2023
 [*]
 [dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\StepperController.ghw"
-[dumpfile_mtime] "Wed Nov 15 05:33:38 2023"
-[dumpfile_size] 220208
+[dumpfile_mtime] "Mon Dec 04 01:05:14 2023"
+[dumpfile_size] 7114249
 [savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\StepperController.gtkw"
 [timestart] 0
 [size] 2560 1369
 [pos] -1 -1
-*-33.364029 14700000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-33.031300 20760000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.steppercontroller_tb.
-[treeopen] top.steppercontroller_tb.uut.
+[treeopen] top.steppercontroller_tb.dut.
 [sst_width] 453
 [signals_width] 246
 [sst_expanded] 1
@@ -20,32 +20,41 @@
 @800200
 -system
 @28
-top.steppercontroller_tb.uut.clk
-top.steppercontroller_tb.uut.rst
+top.steppercontroller_tb.sclk
+top.steppercontroller_tb.srst
 @1000200
 -system
 @200
 -
 @800200
 -IO
-@28
-top.steppercontroller_tb.uut.init_pos_sel
 @29
-[color] 3
-top.steppercontroller_tb.uut.dir_sel
-@28
+top.steppercontroller_tb.sinit_pos_sel
+@420
 [color] 2
-top.steppercontroller_tb.uut.step_pulse
+#{top.steppercontroller_tb.spid_position[11:0]} top.steppercontroller_tb.spid_position[11] top.steppercontroller_tb.spid_position[10] top.steppercontroller_tb.spid_position[9] top.steppercontroller_tb.spid_position[8] top.steppercontroller_tb.spid_position[7] top.steppercontroller_tb.spid_position[6] top.steppercontroller_tb.spid_position[5] top.steppercontroller_tb.spid_position[4] top.steppercontroller_tb.spid_position[3] top.steppercontroller_tb.spid_position[2] top.steppercontroller_tb.spid_position[1] top.steppercontroller_tb.spid_position[0]
 @1000200
 -IO
+@200
+-
 @800200
--internal
-@22
-#{top.steppercontroller_tb.uut.sposition_counter[7:0]} top.steppercontroller_tb.uut.sposition_counter[7] top.steppercontroller_tb.uut.sposition_counter[6] top.steppercontroller_tb.uut.sposition_counter[5] top.steppercontroller_tb.uut.sposition_counter[4] top.steppercontroller_tb.uut.sposition_counter[3] top.steppercontroller_tb.uut.sposition_counter[2] top.steppercontroller_tb.uut.sposition_counter[1] top.steppercontroller_tb.uut.sposition_counter[0]
+-stepper state machine
 @420
-top.steppercontroller_tb.uut.sstepper_state
-top.steppercontroller_tb.uut.spulse_state
+top.steppercontroller_tb.dut.sstepper_state
+[color] 2
+#{top.steppercontroller_tb.dut.sposition_counter[11:0]} top.steppercontroller_tb.dut.sposition_counter[11] top.steppercontroller_tb.dut.sposition_counter[10] top.steppercontroller_tb.dut.sposition_counter[9] top.steppercontroller_tb.dut.sposition_counter[8] top.steppercontroller_tb.dut.sposition_counter[7] top.steppercontroller_tb.dut.sposition_counter[6] top.steppercontroller_tb.dut.sposition_counter[5] top.steppercontroller_tb.dut.sposition_counter[4] top.steppercontroller_tb.dut.sposition_counter[3] top.steppercontroller_tb.dut.sposition_counter[2] top.steppercontroller_tb.dut.sposition_counter[1] top.steppercontroller_tb.dut.sposition_counter[0]
 @1000200
--internal
+-stepper state machine
+@200
+-
+@800200
+-pulse state machine
+@420
+top.steppercontroller_tb.dut.spulse_state
+@28
+top.steppercontroller_tb.dut.dir_sel
+top.steppercontroller_tb.dut.step_pulse
+@1000200
+-pulse state machine
 [pattern_trace] 1
 [pattern_trace] 0

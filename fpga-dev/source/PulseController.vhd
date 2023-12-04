@@ -17,19 +17,19 @@ use ieee.numeric_std.all;
 
 entity PulseController is
   generic (
-    gTrig_Count : natural := 1500;                  -- > 10 us trigger pulse
-    gRecv_Count : natural := 125;                   -- 1 us receive resolution
-    gWait_Count : natural := 7500000;               -- 60 ms retransmit window      --(TEST ONLY with 1250)
-    gPause_Count: natural := 7500000                -- 60 ms pause                  --(TEST ONLY with 1250)
+    gTrig_Count : natural := 1500;                                        -- > 10 us trigger pulse
+    gRecv_Count : natural := 125;                                         -- 1 us receive resolution
+    gWait_Count : natural := 7500000;                                     -- 60 ms retransmit window      --(TEST ONLY with 1250)
+    gPause_Count: natural := 7500000                                      -- 60 ms pause                  --(TEST ONLY with 1250)
   );
   port (
-    Clk             : in  std_logic;                --input clock
-    Rst             : in  std_logic;                --reset signal
-    Trig_Enable     : in  std_logic;                --enable/disable ultrasonic
-    Recv_Pulse      : in  std_logic;                --recvieved pulse from ultrasonic
-    Trig_Pulse      : out std_logic;                --trigger pulse sent to ultrasonic
-    Curr_Dist       : out signed(18 downto 0);      --(Q7.12) current distance (cm)
-    Curr_Dist_Valid : out std_logic;
+    Clk             : in  std_logic;                                      --input clock
+    Rst             : in  std_logic;                                      --reset signal
+    Trig_Enable     : in  std_logic;                                      --enable/disable ultrasonic
+    Recv_Pulse      : in  std_logic;                                      --recvieved pulse from ultrasonic
+    Trig_Pulse      : out std_logic;                                      --trigger pulse sent to ultrasonic
+    Curr_Dist_Valid : out std_logic;                                      --indicate if distance is valid
+    Curr_Dist       : out signed(18 downto 0);                            --(Q7.12) current distance (cm)
     Led0            : out std_logic;
     Led1            : out std_logic;
     Led2            : out std_logic;
@@ -40,11 +40,11 @@ end PulseController;
 architecture Behavioral of PulseController is
 
   --constants
-  constant cTime_to_Dist  : unsigned(11 downto 0) := "000001000110";  --(Q0.12) conversion factor, represents (speed of sound)/2 = 0.0175 cm/s
+  constant cTime_to_Dist  : unsigned(11 downto 0) := "000001000110";      --(Q0.12) conversion factor, represents (speed of sound)/2 = 0.0175 cm/us
 
   --data
-  signal sRecv_Time       : unsigned(11 downto 0);                    --(Q12.0) round-trip pulse travel time (us)
-  signal sCurr_Dist       : unsigned(23 downto 0);                    --(Q12.12) current distance (cm)
+  signal sRecv_Time       : unsigned(11 downto 0);                        --(Q12.0) round-trip pulse travel time (us)
+  signal sCurr_Dist       : unsigned(23 downto 0);                        --(Q12.12) current distance (cm)
   signal sLed_Recv_Time   : unsigned(11 downto 0);
 
   --counters
@@ -63,7 +63,8 @@ begin
   -- Distance Output
   ----------------------------------------------------------------------
   --Establish signed format Q(7.12) for the ouptut distance
-  --Only need 6 actual integer bits because maximum track length is 50 cm 
+  --Only need 6 actual integer bits because maximum track length is 50 cm
+  --Include an additional sign bit 
   Curr_Dist <= signed('0' & sCurr_Dist(17 downto 0));
 
   ----------------------------------------------------------------------

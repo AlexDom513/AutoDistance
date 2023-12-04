@@ -29,7 +29,6 @@ entity autoDistance_top is
     Init_Pos_Sel      : in  std_logic;
     Dir_Sel           : out std_logic;
     Step_Pulse        : out std_logic;
-    --LED               : out std_logic;
     Trig_Enable       : in  std_logic;
     Recv_Pulse        : in  std_logic;
     Trig_Pulse        : out std_logic;
@@ -43,9 +42,9 @@ end autoDistance_top;
 architecture Behavioral of autoDistance_top is
 
   --data
-  signal sCurr_Dist       : signed(18 downto 0);
-  signal sCurr_Dist_Valid : std_logic;
-  signal sPID_Postion     : signed(35 downto 0);
+  signal sCurr_Dist         : signed(18 downto 0);
+  signal sCurr_Dist_Valid   : std_logic;
+  signal sPID_Position      : signed(11 downto 0);
 
 begin
 
@@ -70,7 +69,7 @@ begin
     Rst             => Rst,
     Curr_Dist       => sCurr_Dist,
     Curr_Dist_Valid => sCurr_Dist_Valid,
-    PID_Postion     => sPID_Postion
+    PID_Position    => sPID_Position
   );
 
   stepperController: entity work.StepperController
@@ -80,8 +79,7 @@ begin
     Init_Pos_Sel    => Init_Pos_Sel,
     Dir_Sel         => Dir_Sel,
     Step_Pulse      => Step_Pulse,
-    --LED             => open,
-    PID_Postion     => sPID_Postion
+    PID_Position    => sPID_Position
   );
 
 end Behavioral;

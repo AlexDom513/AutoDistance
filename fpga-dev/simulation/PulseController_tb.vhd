@@ -11,9 +11,6 @@ architecture Behavioral of PulseController_tb is
   signal sClk           : std_logic := '0';
   signal sRst           : std_logic := '1';
 
-  --simulation
-  signal sTime          : time := 10 us;
-
   --selects
   signal sTrig_Enable   : std_logic := '0';
 
@@ -47,14 +44,11 @@ begin
     sTrig_Enable <= '1';
 
     --wait for trigger pulse, control duration of Recv_Pulse to affect simulation
-    for i in 1 to 100 loop
-      wait until sTrig_Pulse = '1';
-      wait until sTrig_Pulse = '0';
-      sRecv_Pulse <= '1';               --pulse return
-      wait for sTime;                   --wait for pulse duration
-      sTime <= sTime + 10 us;           --update pulse duration
-      sRecv_Pulse <= '0';               --terminate pulse
-    end loop;
+    wait until sTrig_Pulse = '1';
+    wait until sTrig_Pulse = '0';
+    sRecv_Pulse <= '1';               --pulse return
+    wait for 116.6 us;                --wait for pulse duration
+    sRecv_Pulse <= '0';               --terminate pulse
 
     --end stim
     sTrig_Enable <= '0';

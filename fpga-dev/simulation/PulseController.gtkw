@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Sun Nov 26 08:19:50 2023
+[*] Sun Dec 03 20:56:02 2023
 [*]
 [dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.ghw"
-[dumpfile_mtime] "Sun Nov 26 08:19:00 2023"
-[dumpfile_size] 10364489
+[dumpfile_mtime] "Sun Dec 03 20:52:42 2023"
+[dumpfile_size] 35403643
 [savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PulseController.gtkw"
-[timestart] 0
+[timestart] 1262065400000
 [size] 2560 1369
 [pos] -1 -1
-*-34.947041 53400000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-25.185400 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.pulsecontroller_tb.
 [treeopen] top.pulsecontroller_tb.dut.
@@ -30,6 +30,8 @@ top.pulsecontroller_tb.dut.sstate
 -
 @800200
 -measurements
+@29
+top.pulsecontroller_tb.dut.curr_dist_valid
 @40000420
 [color] 2
 [fpshift_count] 12

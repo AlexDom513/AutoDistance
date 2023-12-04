@@ -7,14 +7,14 @@ end PidController_tb;
 
 architecture Behavioral of PidController_tb is
 
-  --addition constant
+  -- addition constant
   constant cIncr          : signed(18 downto 0) := "0000000010000000000"; --0.25 cm increment
 
-  --system
+  -- system
   signal sClk             : std_logic := '0';
   signal sRst             : std_logic := '1';
 
-  --data
+  -- data
   signal sCurr_Dist       : signed(18 downto 0) := "0000000000000000000"; --0 cm start
   signal sCurr_Dist_Valid : std_logic;
 
@@ -31,16 +31,17 @@ begin
   tbStim: process is
   begin
 
-    --system reset
+    -- system reset
     sRst <= '1';
     wait for 5 us;
     sRst <= '0';
     wait for 100 ns;
 
-    for i in 1 to 400 loop
+    -- start on the left side and move right, after 200 moves, begin moving left
+    for i in 0 to 352 loop
       wait for 10 us;
       wait until rising_edge(sClk);
-      if (i < 200) then
+      if (i < 176) then --44 cm / 0.25 cm increment = 176 steps
         sCurr_Dist        <= sCurr_Dist + cIncr;
       else
         sCurr_Dist        <= sCurr_Dist - cIncr;
@@ -62,6 +63,6 @@ begin
     Rst             => sRst,
     Curr_Dist       => sCurr_Dist,
     Curr_Dist_Valid => sCurr_Dist_Valid,
-    PID_Postion     => open
+    PID_Position    => open
   );
 end Behavioral;

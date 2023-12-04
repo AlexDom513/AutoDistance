@@ -15,7 +15,7 @@ architecture Behavioral of StepperController_tb is
   signal sInit_Pos_Sel  : std_logic := '1';
   signal sDir_Sel       : std_logic;
   signal sStep_Pulse    : std_logic;
-  signal sPID_Postion   : signed(35 downto 0);
+  signal sPID_Position  : signed(11 downto 0);
 
 begin
     
@@ -39,6 +39,14 @@ begin
     --begin stim
     wait for 10 us;
     sInit_Pos_Sel <= '0';
+    sPID_Position <= to_signed(-50, 12);
+    wait for 10 us;
+
+    --target different positions
+    for i in 0 to 100 loop
+      sPID_Position <= sPID_Position + 1;
+      wait for 10 us;
+    end loop;
     wait;
   end process;
 
@@ -52,7 +60,6 @@ begin
     Init_Pos_Sel    => sInit_Pos_Sel,
     Dir_Sel         => sDir_Sel,
     Step_Pulse      => sStep_Pulse,
-    --LED             => open,
-    PID_Postion     => sPID_Postion
+    PID_Position    => sPID_Position
   );
 end Behavioral;
