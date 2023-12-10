@@ -17,6 +17,7 @@ architecture Behavioral of PidController_tb is
   -- data
   signal sCurr_Dist       : signed(18 downto 0) := "0000000000000000000"; --0 cm start
   signal sCurr_Dist_Valid : std_logic;
+  signal sPID_Position    : signed(11 downto 0);
 
 begin
     
@@ -29,6 +30,8 @@ begin
   -- Stimulus
   ----------------------------------------
   tbStim: process is
+    variable vCurr_Acc : signed(18 downto 0);
+    variable vCurr_Vel : signed(18 downto 0);
   begin
 
     -- system reset
@@ -37,20 +40,70 @@ begin
     sRst <= '0';
     wait for 100 ns;
 
-    -- start on the left side and move right, after 200 moves, begin moving left
-    for i in 0 to 352 loop
+    -- set variables
+    vCurr_Acc := (others => '0');
+    vCurr_Vel := (others => '0');
+
+    -- dynamic model
+    for i in 0 to 1000 loop
       wait for 10 us;
       wait until rising_edge(sClk);
-      if (i < 176) then --44 cm / 0.25 cm increment = 176 steps
-        sCurr_Dist        <= sCurr_Dist + cIncr;
-      else
-        sCurr_Dist        <= sCurr_Dist - cIncr;
-      end if;
+
+      -- determine acceleration from ramp angle
+    if (sPID_Position < -50) then
+      vCurr_Acc         := "1111111000000000000";
+    elsif (sPID_Position < -45) then
+      vCurr_Acc         := "1111111000000110010";
+    elsif (sPID_Position < -40) then
+      vCurr_Acc         := "1111111000011001000";
+    elsif (sPID_Position < -35) then
+      vCurr_Acc         := "1111111000110111110";
+    elsif (sPID_Position < -30) then
+      vCurr_Acc         := "1111111001100001110";
+    elsif (sPID_Position < -25) then
+      vCurr_Acc         := "1111111010010110000";
+    elsif (sPID_Position < -20) then
+      vCurr_Acc         := "1111111011010011000";
+    elsif (sPID_Position < -15) then
+      vCurr_Acc         := "1111111100010111100";
+    elsif (sPID_Position < -10) then
+      vCurr_Acc         := "1111111101100001110";
+    elsif (sPID_Position < -5) then
+      vCurr_Acc         := "1111111110101111111";
+    elsif (sPID_Position < 0) then
+      vCurr_Acc         := "0000000000000000000";
+    elsif (sPID_Position < 5) then
+      vCurr_Acc         := "0000000000000000000";
+    elsif (sPID_Position < 10) then
+      vCurr_Acc         := "0000000010011110010";
+    elsif (sPID_Position < 15) then
+      vCurr_Acc         := "0000000011101000100";
+    elsif (sPID_Position < 20) then
+      vCurr_Acc         := "0000000100101101000";
+    elsif (sPID_Position < 25) then
+      vCurr_Acc         := "0000000101101010000";
+    elsif (sPID_Position < 30) then
+      vCurr_Acc         := "0000000110011110010";
+    elsif (sPID_Position < 35) then
+      vCurr_Acc         := "0000000111001000010";
+    elsif (sPID_Position < 40) then
+      vCurr_Acc         := "0000000111100111000";
+    elsif (sPID_Position < 45) then
+      vCurr_Acc         := "0000000111111001110";
+    else
+      vCurr_Acc         := "0000001000000000000";
+    end if;
+
+      -- update the current velocity
+      vCurr_Vel := vCurr_Vel + vCurr_Acc;
+
+      -- update the current distance
+      sCurr_Dist <= sCurr_Dist + vCurr_Vel;
+
       sCurr_Dist_Valid  <= '1';
       wait until rising_edge(sClk);
       sCurr_Dist_Valid  <= '0';
     end loop;
-
     wait;
   end process;
 
@@ -63,6 +116,6 @@ begin
     Rst             => sRst,
     Curr_Dist       => sCurr_Dist,
     Curr_Dist_Valid => sCurr_Dist_Valid,
-    PID_Position    => open
+    PID_Position    => sPID_Position
   );
 end Behavioral;

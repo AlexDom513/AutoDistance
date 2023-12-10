@@ -23,28 +23,31 @@ entity PidController is
     Rst               : in  std_logic;
     Curr_Dist         : in  signed(18 downto 0);
     Curr_Dist_Valid   : in  std_logic;
-    PID_Position      : out signed(11 downto 0)                                   --(Q12.0), indicates where stepper should be relative to calibration point
+    PID_Position      : out signed(11 downto 0)                                         -- (Q12.0), indicates where stepper should be relative to calibration point
   );
 end PidController;
 
 architecture Behavioral of PidController is
 
   -- constants
-  constant cKp            : signed(12 downto 0) := to_signed(2,5) & "00000000";         --(Q5.8), (4)
-  constant cKi            : signed(12 downto 0) := to_signed(0,5) & "00000000";         --(Q5.8), (0)
-  constant cKd            : signed(12 downto 0) := to_signed(0,5) & "00000000";         --(Q5.8), (0)
-  constant cTarget_Dist   : signed(18 downto 0) := to_signed(gTarget_Dist,7) & x"000";  --(Q7.12), target distance = 25.0 cm
-  constant cSat_Max       : signed(11 downto 0) := to_signed(50,12);                    --(Q12.0), +50
-  constant cSat_Min       : signed(11 downto 0) := to_signed(-50,12);                   --(Q12.0), -50
+  constant cKp            : signed(12 downto 0) := to_signed(2,5) & "00000000";         -- (Q5.8), (2)
+  constant cKi            : signed(12 downto 0) := to_signed(0,5) & "01000000";         -- (Q5.8), (0.25)
+  constant cKd            : signed(12 downto 0) := to_signed(1,5) & "11000000";         -- (Q5.8), (1.75)
+  constant cTarget_Dist   : signed(18 downto 0) := to_signed(gTarget_Dist,7) & x"000";  -- (Q7.12), target distance = 25.0 cm
+  constant cSat_Max       : signed(11 downto 0) := to_signed(50,12);                    -- (Q12.0), +50
+  constant cSat_Min       : signed(11 downto 0) := to_signed(-50,12);                   -- (Q12.0), -50
+
+  -- control
+  signal sI_disable       : std_logic;                                                  -- to prevent integral windup
 
   -- data
-  signal sCurr_Dist       : signed(18 downto 0);                                        --(Q7.12)  current distance to cart
-  signal sDist_Error      : signed(18 downto 0);                                        --(Q7.12)  error = target - current
-  signal sDist_Error_d1   : signed(18 downto 0);                                        --(Q7.12)  previously computed error
-  signal sP               : signed(31 downto 0);                                        --(Q12.20) proportional
-  signal sI               : signed(31 downto 0);                                        --(Q12.20) integral
-  signal sD               : signed(31 downto 0);                                        --(Q12.20) derivative
-  signal sPID_Position    : signed(31 downto 0);                                        --(Q12.20)
+  signal sCurr_Dist       : signed(18 downto 0);                                        -- (Q7.12)  current distance to cart
+  signal sDist_Error      : signed(18 downto 0);                                        -- (Q7.12)  error = target - current
+  signal sDist_Error_d1   : signed(18 downto 0);                                        -- (Q7.12)  previously computed error
+  signal sP               : signed(31 downto 0);                                        -- (Q12.20) proportional
+  signal sI               : signed(31 downto 0);                                        -- (Q12.20) integral
+  signal sD               : signed(31 downto 0);                                        -- (Q12.20) derivative
+  signal sPID_Position    : signed(31 downto 0);                                        -- (Q12.20)
 
   -- state machine
   type tPid_State is (IDLE, ERR, PID, RES, SAT);
@@ -59,45 +62,62 @@ begin
   begin
     if (rising_edge(Clk)) then
       if (Rst = '1') then
-        sDist_Error     <= (others => '0');
-        sDist_Error_d1  <= (others => '0');
-        PID_Position    <= (others => '0');
-        sPID_Position   <= (others => '0');
-        sState          <= IDLE;
+        sI_disable          <= '0';
+        sP                  <= (others => '0');
+        sI                  <= (others => '0');
+        sDist_Error         <= (others => '0');
+        sDist_Error_d1      <= (others => '0');
+        sPID_Position       <= (others => '0');
+        PID_Position        <= (others => '0');
+        sState              <= IDLE;
       else
         case sState is
 
           -- IDLE state, wait for valid distance reading
           when IDLE =>
             if (Curr_Dist_Valid = '1') then
-              sCurr_Dist  <= Curr_Dist;
-              sState      <= ERR;
+              sCurr_Dist      <= Curr_Dist;
+              sState          <= ERR;
             end if;
 
-          -- ERR state, compute error
+          -- ERR state, compute new error and register previous error
           when ERR =>
-            sDist_Error   <= cTarget_Dist - sCurr_Dist;
-            sState        <= PID;
+            sDist_Error       <= cTarget_Dist - sCurr_Dist;
+            sDist_Error_d1    <= sDist_Error;
+            sState            <= PID;
 
           -- PID state, perform PID computation
           -- sP (Q12.20) = cKP (Q5.8) * sDist_Error (Q7.12)
+          -- sI (Q12.20) = cKI (Q5.8) * (sDist_Error (Q7.12) + sDist_Error_d1 (Q7.12))
+          -- sD (Q12.20) = cKD (Q5.8) * (sDist_Error (Q7.12) - sDist_Error_d1 (Q7.12))
           when PID =>
-            sP            <= cKp * sDist_Error;
-            sState        <= RES;
+            sP                <= cKp * sDist_Error;
+            sD                <= cKd * (sDist_Error - sDist_Error_d1);
+            
+            -- disable integral when in saturation to prevent integral windup
+            if (sI_disable = '0') then
+            sI              <= cKi * (sDist_Error + sDist_Error_d1);
+            else
+              sI              <= (others => '0');
+            end if;
+            sState            <= RES;
 
-          -- RES state, add together the gains to obtain the result
+          -- RES state, new stepper angle = previous stepper angle + gains
           when RES =>
-            sPID_Position <= sP;
-            sState        <= SAT;
+            sPID_Position     <= sP + sI + sD;
+            sState            <= SAT;
           
           -- SAT state, saturate the result if necessary
           when SAT =>
             if (sPID_Position(sPID_Position'high downto sPID_Position'high-11) > cSat_Max) then
-              PID_Position <= cSat_Max;
+              sI_disable        <= '1';
+              PID_Position      <= cSat_Max;
             elsif (sPID_Position(sPID_Position'high downto sPID_Position'high-11) < cSat_Min) then
-              PID_Position <= cSat_Min;
+              sI_disable      <= '1';
+              PID_Position    <= cSat_Min;
             else
-              PID_Position <= sPID_Position(sPID_Position'high downto sPID_Position'high-11);
+              sI_disable      <= '0';
+              PID_Position    <= sPID_Position(sPID_Position'high downto sPID_Position'high-11);
             end if;
             sState <= IDLE;
         end case;
