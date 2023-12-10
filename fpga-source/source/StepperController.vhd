@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------------------
---    AlexDom513 --- 11/23/23
+--    Alexander Domagala --- 11/23/23
 -----------------------------------------------------------------------------------------------
 --    Module interacts with the A4988 Stepper Motor Drive board. The stepper state machine
 --    is used to monitor the current position of the stepper motor relative to a set 
@@ -25,26 +25,24 @@ end StepperController;
 
 architecture Behavioral of StepperController is
 
-  --types
+  -- types
   type tStepper_State      is (SETUP, INCR, DECR, PAUSE);
   type tPulse_State        is (IDLE, TRIG_H, TRIG_L, DONE);
 
-  --constants
+  -- constants
   constant cPosition_Center           : signed(11 downto 0)   := x"032";
-  --constant cMax_Pulse_HIGH            : unsigned(20 downto 0) := to_unsigned(100, 21);    --TEST ONLY
-  --constant cMax_Pulse_LOW             : unsigned(20 downto 0) := to_unsigned(200, 21);    --TEST ONLY
   constant cMax_Pulse_HIGH            : unsigned(29 downto 0) := to_unsigned(1250000, 30);    
   constant cMax_Pulse_LOW             : unsigned(29 downto 0) := to_unsigned(2500000, 30);
 
-  --control
+  -- control
   signal sPulse_Trig                  : std_logic;
 
-  --counters
+  -- counters
   signal sPosition_Counter            : signed(11 downto 0);
   signal sPID_Position                : signed(11 downto 0);
   signal sPulse_Duration_Counter      : unsigned(29 downto 0);
 
-  --state machines
+  -- state machines
   signal sStepper_State               : tStepper_State      := SETUP;
   signal sPulse_State                 : tPulse_State        := IDLE;
 
@@ -70,7 +68,7 @@ begin
       else
         case sStepper_State is
 
-          --SETUP state, calibrate the position counter (bring ramp to flat position)
+          -- SETUP state, calibrate the position counter (bring ramp to flat position)
           when SETUP =>
             if (Init_Pos_Sel = '1') then
               sPosition_Counter <= (others => '0');
@@ -78,7 +76,7 @@ begin
               sStepper_State <= PAUSE;
             end if;
 
-          --PAUSE state, decide whether to raise or lower ramp
+          -- PAUSE state, decide whether to raise or lower ramp
           when PAUSE =>
             if (sPosition_Counter < sPID_Position) then
               sStepper_State <= INCR;
@@ -88,7 +86,7 @@ begin
               sStepper_State <= PAUSE;
             end if;
 
-          --INCR state, raise ramp
+          -- INCR state, raise ramp
           when INCR =>
             if (sPulse_State = IDLE) then
               Dir_Sel <= '1';
@@ -100,7 +98,7 @@ begin
               sStepper_State <= PAUSE;
             end if;
 
-          --DECR state, lower ramp
+          -- DECR state, lower ramp
           when DECR =>
             if (sPulse_State = IDLE) then
               Dir_Sel <= '0';
@@ -130,14 +128,14 @@ begin
       else
         case sPulse_State is
 
-          --IDLE state, begin sending pulse when sPulse_Trig is asserted
+          -- IDLE state, begin sending pulse when sPulse_Trig is asserted
           when IDLE =>
             sPulse_Duration_Counter <= (others => '0');
             if (sPulse_Trig = '1') then
               sPulse_State <= TRIG_H;
             end if;
 
-          --TRIG_H state, assert the stepper pulse for a certain amount of time
+          -- TRIG_H state, assert the stepper pulse for a certain amount of time
           when TRIG_H =>
             Step_Pulse <= '1';
             if (sPulse_Duration_Counter = cMax_Pulse_HIGH-1) then
@@ -147,7 +145,7 @@ begin
               sPulse_Duration_Counter <= sPulse_Duration_Counter + 1;
             end if;
           
-          --TRIG_L state, hold the pulse low for a certain amount of time
+          -- TRIG_L state, hold the pulse low for a certain amount of time
           when TRIG_L =>
             if (sPulse_Duration_Counter = cMax_Pulse_LOW-1) then
               sPulse_State <= DONE;
@@ -155,7 +153,7 @@ begin
               sPulse_Duration_Counter <= sPulse_Duration_Counter + 1;
             end if;
 
-          --DONE state
+          -- DONE state
           when DONE =>
             sPulse_State <= IDLE;
         end case;

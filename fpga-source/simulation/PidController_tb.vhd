@@ -7,9 +7,6 @@ end PidController_tb;
 
 architecture Behavioral of PidController_tb is
 
-  -- addition constant
-  constant cIncr          : signed(18 downto 0) := "0000000010000000000"; --0.25 cm increment
-
   -- system
   signal sClk             : std_logic := '0';
   signal sRst             : std_logic := '1';
@@ -50,6 +47,7 @@ begin
       wait until rising_edge(sClk);
 
       -- determine acceleration from ramp angle
+      -- see fixedPoint.Py for generation
     if (sPID_Position < -50) then
       vCurr_Acc         := "1111111000000000000";
     elsif (sPID_Position < -45) then

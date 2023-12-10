@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------------------
---    AlexDom513 --- 11/23/23
+--    Alexander Domagala --- 12/9/23
 -----------------------------------------------------------------------------------------------
 --    Inspired by: https://github.com/deepc94/pid-fpga-vhdl/blob/master/pid.vhd
 --    Notes on computing PID_Position:
@@ -21,8 +21,8 @@ entity PidController is
   port (
     Clk               : in  std_logic;
     Rst               : in  std_logic;
-    Curr_Dist         : in  signed(18 downto 0);
     Curr_Dist_Valid   : in  std_logic;
+    Curr_Dist         : in  signed(18 downto 0);
     PID_Position      : out signed(11 downto 0)                                         -- (Q12.0), indicates where stepper should be relative to calibration point
   );
 end PidController;
@@ -87,7 +87,7 @@ begin
             sState            <= PID;
 
           -- PID state, perform PID computation
-          -- sP (Q12.20) = cKP (Q5.8) * sDist_Error (Q7.12)
+          -- sP (Q12.20) = cKP (Q5.8) * sDist_Error  (Q7.12)
           -- sI (Q12.20) = cKI (Q5.8) * (sDist_Error (Q7.12) + sDist_Error_d1 (Q7.12))
           -- sD (Q12.20) = cKD (Q5.8) * (sDist_Error (Q7.12) - sDist_Error_d1 (Q7.12))
           when PID =>

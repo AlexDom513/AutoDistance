@@ -92,24 +92,28 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../fpga-dev/source/StepperController.vhd">
+      <File Path="$PPRDIR/../fpga-source/source/StepperController.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../fpga-dev/source/PulseController.vhd">
+      <File Path="$PPRDIR/../fpga-source/source/autoDistance_top.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../fpga-dev/source/autoDistance_top.vhd">
+      <File Path="$PPRDIR/../fpga-source/source/PulseController.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../fpga-dev/source/PidController.vhd">
+      <File Path="$PPRDIR/../fpga-source/source/PidController.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <Config>
