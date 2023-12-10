@@ -7,16 +7,14 @@ Before starting to implement the PID controller in hardware, a [Python script](h
 A simulation then shows how the cart position is affected by the changing angle of a ramp:
 
 
-<img src="media/sim.png" width="267" height="200">
+<img src="media/sim.png" width="534" height="400">
 
 
 ## FPGA Modules
-
-
 ### PulseController
+The module is responsible for interacting with the ultrasonic sensor. According to the [datasheet](https://github.com/AlexDom513/autoDistance/blob/main/datasheets/HCSR04.pdf), the FPGA must send a 10 microsecond trigger pulse. The sensor the sends eight 40 kHz pulses and detects whether there is a returned pulse. If there is a returned pulse, the time of high output from the sensor is proportional to the distance detected.
 
-
-### PidController
+### PIDController
 ### StepperController
 
 
