@@ -4,8 +4,9 @@
 --    Inspired by: https://github.com/deepc94/pid-fpga-vhdl/blob/master/pid.vhd
 --    Notes on computing PID_Position:
 --      We allow +/- 90 degrees of motor rotation from the calibrated 0 point
---      90 degrees / 1.8 degrees per motor step = 50 motor step maximum in either direction
---      Thus, PID_Position has an allowable range [-50, 50]. We must perform our calculations
+--      Motor has 1.8 degree step size, but we utilize (1/8) microstepping -> (0.225 degrees)
+--      90 degrees / 0.225 degrees per motor step = 400 motor step maximum in either direction
+--      Thus, PID_Position has an allowable range [-400, 400]. We must perform our calculations
 --      so that there is as little saturation as possible. We want movement of the cart along
 --      the ramp to yield movement of the motor system.
 -----------------------------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use ieee.numeric_std.all;
 
 entity PidController is
   generic (
-    gTarget_Dist : natural := 14
+    gTarget_Dist      : natural := 14
   );
   port (
     Clk               : in  std_logic;
@@ -30,12 +31,12 @@ end PidController;
 architecture Behavioral of PidController is
 
   -- constants
-  constant cKp            : signed(12 downto 0) := to_signed(2,5) & "00000000";         -- (Q5.8), (2)
-  constant cKi            : signed(12 downto 0) := to_signed(0,5) & "01000000";         -- (Q5.8), (0.25)
-  constant cKd            : signed(12 downto 0) := to_signed(1,5) & "11000000";         -- (Q5.8), (1.75)
+  constant cKp            : signed(12 downto 0) := to_signed(1,5) & "00000000";         -- (Q5.8), (1)
+  constant cKi            : signed(12 downto 0) := to_signed(1,5) & "00000000";         -- (Q5.8), (2)
+  constant cKd            : signed(12 downto 0) := to_signed(2,5) & "00000000";         -- (Q5.8), (2)
   constant cTarget_Dist   : signed(18 downto 0) := to_signed(gTarget_Dist,7) & x"000";  -- (Q7.12), target distance = 25.0 cm
-  constant cSat_Max       : signed(11 downto 0) := to_signed(50,12);                    -- (Q12.0), +50
-  constant cSat_Min       : signed(11 downto 0) := to_signed(-50,12);                   -- (Q12.0), -50
+  constant cSat_Max       : signed(11 downto 0) := to_signed(400,12);                   -- (Q12.0), +400
+  constant cSat_Min       : signed(11 downto 0) := to_signed(-400,12);                  -- (Q12.0), -400
 
   -- control
   signal sI_disable       : std_logic;                                                  -- to prevent integral windup
@@ -50,7 +51,7 @@ architecture Behavioral of PidController is
   signal sPID_Position    : signed(31 downto 0);                                        -- (Q12.20)
 
   -- state machine
-  type tPid_State is (IDLE, ERR, PID, RES, SAT);
+  type tPid_State is (IDLE, ERR, PID, RES, SCALE, SAT);
   signal sState : tPid_State := IDLE;
 
 begin
@@ -96,7 +97,7 @@ begin
             
             -- disable integral when in saturation to prevent integral windup
             if (sI_disable = '0') then
-            sI                <= cKi * (sDist_Error + sDist_Error_d1);
+              sI              <= cKi * (sDist_Error + sDist_Error_d1);
             else
               sI              <= (others => '0');
             end if;
@@ -105,9 +106,13 @@ begin
           -- RES state, new stepper angle = previous stepper angle + gains
           when RES =>
             sPID_Position     <= sP + sI + sD;
+            sState            <= SCALE;
+
+          when SCALE =>
+            sPID_Position     <= shift_left(sPID_Position,3);
             sState            <= SAT;
           
-          -- SAT state, saturate the result if necessary
+          -- SAT state, saturate the result if necessary and provide scaling for microstepping
           when SAT =>
             if (sPID_Position(sPID_Position'high downto sPID_Position'high-11) > cSat_Max) then
               sI_disable      <= '1';

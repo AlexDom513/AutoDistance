@@ -29,17 +29,15 @@ architecture Behavioral of StepperController is
   type tStepper_State      is (SETUP, INCR, DECR, PAUSE);
   type tPulse_State        is (IDLE, TRIG_H, TRIG_L, DONE);
 
-  -- constants
-  constant cPosition_Center           : signed(11 downto 0)   := x"032";
-  constant cMax_Pulse_HIGH            : unsigned(29 downto 0) := to_unsigned(1250000, 30);    
-  constant cMax_Pulse_LOW             : unsigned(29 downto 0) := to_unsigned(2500000, 30);
+  -- constants defining motor step time (2 ms -> 500 Hz)
+  constant cMax_Pulse_HIGH            : unsigned(29 downto 0) := to_unsigned(125000, 30); -- 1 ms HIGH
+  constant cMax_Pulse_LOW             : unsigned(29 downto 0) := to_unsigned(250000, 30); -- 1 ms LOW
 
   -- control
   signal sPulse_Trig                  : std_logic;
 
   -- counters
   signal sPosition_Counter            : signed(11 downto 0);
-  signal sPID_Position                : signed(11 downto 0);
   signal sPulse_Duration_Counter      : unsigned(29 downto 0);
 
   -- state machines
@@ -47,12 +45,6 @@ architecture Behavioral of StepperController is
   signal sPulse_State                 : tPulse_State        := IDLE;
 
 begin
-
-  ----------------------------------------------------------------------
-  -- PID Output
-  ----------------------------------------------------------------------
-  -- Only use the upper 12 bits
-  sPID_Position <= PID_Position;
 
   ----------------------------------------------------------------------
   -- Stepper State Machine
@@ -64,7 +56,7 @@ begin
     if (rising_edge(Clk)) then
       if (Rst = '1') then
         sStepper_State        <= SETUP;
-        sPosition_Counter     <= cPosition_Center;   --initial position of 50
+        sPosition_Counter     <= (others => '0');
       else
         case sStepper_State is
 
@@ -78,9 +70,9 @@ begin
 
           -- PAUSE state, decide whether to raise or lower ramp
           when PAUSE =>
-            if (sPosition_Counter < sPID_Position) then
+            if (sPosition_Counter < PID_position) then
               sStepper_State <= INCR;
-            elsif (sPosition_Counter > sPID_Position) then
+            elsif (sPosition_Counter > PID_position) then
               sStepper_State <= DECR;
             else
               sStepper_State <= PAUSE;

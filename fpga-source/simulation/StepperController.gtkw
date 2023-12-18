@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Mon Dec 04 01:06:37 2023
+[*] Mon Dec 18 01:53:05 2023
 [*]
-[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\StepperController.ghw"
-[dumpfile_mtime] "Mon Dec 04 01:05:14 2023"
-[dumpfile_size] 7114249
-[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\StepperController.gtkw"
+[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\simulation\StepperController.ghw"
+[dumpfile_mtime] "Mon Dec 18 01:52:48 2023"
+[dumpfile_size] 17994813
+[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\simulation\StepperController.gtkw"
 [timestart] 0
 [size] 2560 1369
 [pos] -1 -1
-*-33.031300 20760000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-33.031300 27250000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.steppercontroller_tb.
 [treeopen] top.steppercontroller_tb.dut.
@@ -28,11 +28,13 @@ top.steppercontroller_tb.srst
 -
 @800200
 -IO
-@29
+@28
 top.steppercontroller_tb.sinit_pos_sel
 @420
 [color] 2
 #{top.steppercontroller_tb.spid_position[11:0]} top.steppercontroller_tb.spid_position[11] top.steppercontroller_tb.spid_position[10] top.steppercontroller_tb.spid_position[9] top.steppercontroller_tb.spid_position[8] top.steppercontroller_tb.spid_position[7] top.steppercontroller_tb.spid_position[6] top.steppercontroller_tb.spid_position[5] top.steppercontroller_tb.spid_position[4] top.steppercontroller_tb.spid_position[3] top.steppercontroller_tb.spid_position[2] top.steppercontroller_tb.spid_position[1] top.steppercontroller_tb.spid_position[0]
+@421
+#{top.steppercontroller_tb.dut.spid_position_micro[11:0]} top.steppercontroller_tb.dut.spid_position_micro[11] top.steppercontroller_tb.dut.spid_position_micro[10] top.steppercontroller_tb.dut.spid_position_micro[9] top.steppercontroller_tb.dut.spid_position_micro[8] top.steppercontroller_tb.dut.spid_position_micro[7] top.steppercontroller_tb.dut.spid_position_micro[6] top.steppercontroller_tb.dut.spid_position_micro[5] top.steppercontroller_tb.dut.spid_position_micro[4] top.steppercontroller_tb.dut.spid_position_micro[3] top.steppercontroller_tb.dut.spid_position_micro[2] top.steppercontroller_tb.dut.spid_position_micro[1] top.steppercontroller_tb.dut.spid_position_micro[0]
 @1000200
 -IO
 @200
