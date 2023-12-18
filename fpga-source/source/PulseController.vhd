@@ -5,6 +5,7 @@
 --    returned from the sensor. We convert the duration of the received pulse (in us) to
 --    distance by multiplying by the speed of sound (cm/us) and dividing by 2
 --    (only care about one-way travel distance, not the entire path).
+--    Module includes a Simple Moving Average filter that smooths the computed distance.
 -----------------------------------------------------------------------------------------------
 --    Conversions:
 --      actual time (s) = (sRecv_Time)(gRecv_Count)(8 ns clock period when 125 MHz)
@@ -19,8 +20,8 @@ entity PulseController is
   generic (
     gTrig_Count           : natural := 1500;                              -- > 10 us trigger pulse
     gRecv_Count           : natural := 125;                               -- 1 us receive resolution
-    gWait_Count           : natural := 7500000;                           -- 60 ms retransmit window
-    gPause_Count          : natural := 7500000                            -- 60 ms pause
+    gWait_Count           : natural := 125000;                            -- 1 ms retransmit window
+    gPause_Count          : natural := 125000  --7500000 (60 ms)          -- 1 ms pause
   );
   port (
     Clk                   : in  std_logic;                                -- input clock
@@ -43,9 +44,11 @@ architecture Behavioral of PulseController is
   constant cTime_to_Dist  : unsigned(11 downto 0) := "000001000110";      -- (Q0.12) conversion factor, represents (speed of sound)/2 = 0.0175 cm/us
 
   -- data
+  signal sLed_Recv_Time   : unsigned(11 downto 0);
   signal sRecv_Time       : unsigned(11 downto 0);                        -- (Q12.0) round-trip pulse travel time (us)
   signal sCurr_Dist       : unsigned(23 downto 0);                        -- (Q12.12) current distance (cm)
-  signal sLed_Recv_Time   : unsigned(11 downto 0);
+  signal sCurr_Dist_Pre   : signed(18 downto 0);                          -- (Q7.12) current distance (cm)
+  signal sCurr_Dist_Valid : std_logic;
 
   -- counters
   signal sTrig_Counter    : natural range 0 to gTrig_Count;
@@ -60,12 +63,22 @@ architecture Behavioral of PulseController is
 begin
 
   ----------------------------------------------------------------------
-  -- Distance Output
+  -- Distance Filter
   ----------------------------------------------------------------------
-  -- Establish signed format Q(7.12) for the ouptut distance
-  -- Only need 6 actual integer bits because maximum track length is 50 cm
-  -- Include an additional sign bit 
-  Curr_Dist <= signed('0' & sCurr_Dist(17 downto 0));
+  -- Establishes signed format Q(7.12) for the ouptut distance
+  -- Only need 6 actual integer bits because maximum track length is 50 cm, include an additional sign bit
+  -- Smooths the computed distance format
+  sCurr_Dist_Pre <= signed('0' & sCurr_Dist(17 downto 0));
+
+  SMA: entity work.MovingAvg
+  port map(
+    Clk             => Clk,
+    Rst             => Rst,
+    Data_In_Valid   => sCurr_Dist_Valid,
+    Data_In         => sCurr_Dist_Pre,
+    Data_Out_Valid  => Curr_Dist_Valid,
+    Data_Out        => Curr_Dist
+  );
 
   ----------------------------------------------------------------------
   -- LED Output
@@ -104,8 +117,8 @@ begin
         sState            <= IDLE;
         sRecv_Time        <= (others => '0');
         sCurr_Dist        <= (others => '0');
+        sCurr_Dist_Valid  <= '0';
         Trig_Pulse        <= '0';
-        Curr_Dist_Valid   <= '0';
       else
         case sState is
           
@@ -158,14 +171,14 @@ begin
               end if;
             else
               sCurr_Dist <= sRecv_Time * cTime_to_Dist;
-              Curr_Dist_Valid <= '1';
+              sCurr_Dist_Valid <= '1';
               sLed_Recv_Time <= sRecv_Time;
               sState <= PAUSE;
             end if;
 
           -- PAUSE state, allow minimum of 60 ms to prevent trigger signal from affecting echo
           when PAUSE =>
-            Curr_Dist_Valid <= '0';
+            sCurr_Dist_Valid <= '0';
             if (sPause_Counter < gPause_Count-1) then
               sPause_Counter <= sPause_Counter + 1;
               sState <= PAUSE;

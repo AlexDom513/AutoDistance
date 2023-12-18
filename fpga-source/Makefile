@@ -4,7 +4,7 @@ GTKWAVE 				= gtkwave
 GHW 						= ghw
 
 SOURCE_DIR 			= source/
-SOURCES 				= $(SOURCE_DIR)PulseController.vhd $(SOURCE_DIR)PidController.vhd $(SOURCE_DIR)StepperController.vhd $(SOURCE_DIR)autoDistance_top.vhd
+SOURCES 				= $(SOURCE_DIR)MovingAvg.vhd $(SOURCE_DIR)PulseController.vhd $(SOURCE_DIR)PidController.vhd $(SOURCE_DIR)StepperController.vhd $(SOURCE_DIR)autoDistance_top.vhd
 SIM_DIR					= simulation/
 SIM_SOURCES 		= $(SIM_DIR)PulseController_tb.vhd $(SIM_DIR)PidController_tb.vhd $(SIM_DIR)StepperController_tb.vhd
 

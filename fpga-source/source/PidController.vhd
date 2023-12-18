@@ -62,14 +62,14 @@ begin
   begin
     if (rising_edge(Clk)) then
       if (Rst = '1') then
-        sI_disable          <= '0';
-        sP                  <= (others => '0');
-        sI                  <= (others => '0');
-        sDist_Error         <= (others => '0');
-        sDist_Error_d1      <= (others => '0');
-        sPID_Position       <= (others => '0');
-        PID_Position        <= (others => '0');
-        sState              <= IDLE;
+        sI_disable            <= '0';
+        sP                    <= (others => '0');
+        sI                    <= (others => '0');
+        sDist_Error           <= (others => '0');
+        sDist_Error_d1        <= (others => '0');
+        sPID_Position         <= (others => '0');
+        PID_Position          <= (others => '0');
+        sState                <= IDLE;
       else
         case sState is
 
@@ -96,7 +96,7 @@ begin
             
             -- disable integral when in saturation to prevent integral windup
             if (sI_disable = '0') then
-            sI              <= cKi * (sDist_Error + sDist_Error_d1);
+            sI                <= cKi * (sDist_Error + sDist_Error_d1);
             else
               sI              <= (others => '0');
             end if;
@@ -110,8 +110,8 @@ begin
           -- SAT state, saturate the result if necessary
           when SAT =>
             if (sPID_Position(sPID_Position'high downto sPID_Position'high-11) > cSat_Max) then
-              sI_disable        <= '1';
-              PID_Position      <= cSat_Max;
+              sI_disable      <= '1';
+              PID_Position    <= cSat_Max;
             elsif (sPID_Position(sPID_Position'high downto sPID_Position'high-11) < cSat_Min) then
               sI_disable      <= '1';
               PID_Position    <= cSat_Min;
@@ -124,9 +124,4 @@ begin
       end if;
     end if;
   end process;
-
-  ----------------------------------------------------------------------
-  -- FIR Filter
-  ----------------------------------------------------------------------
-  -- smooth the target stepper angle
 end Behavioral;
