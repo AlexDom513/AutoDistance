@@ -19,12 +19,14 @@ Whenever a new ramp angle is computed, it is passed to the [StepperController](h
 
 ## Schematics
 ### Sensor Circuit
-Converts +3.3V Trig_Pulse signal from the FPGA to +5V and connects it to ultrasonic sensor (HC-SR04). Sensor outputs +5V signal which is converted back to +3.3V before being passed to the FPGA.
+Converts the +3.3V Trig_Pulse signal to +5V logic. Signal is connected to ultrasonic sensor (HC-SR04). The sensor outputs a +5V signal which is converted back to +3.3V before being passed to the FPGA.
 
-<img src="media/sensor_circuit.png" width="720" height="400">
+<img src="media/sensor_circuit.png" width="800" height="400">
 
 ### Stepper Circuit
-<img src="media/stepper_circuit.png" width="720" height="400">
+Connects control signals (Step_Pulse, Dir_Sel) from the FPGA to the stepper control board (A4988). Since the design is using 1/8 microstepping, MS1 and MS2 are also tied to +5V.
+
+<img src="media/stepper_circuit.png" width="800" height="400">
 
 ## CAD
 This was my first serious attempt at creating a 3D model! All parts were printed using PLA on a PRUSA MK3.
