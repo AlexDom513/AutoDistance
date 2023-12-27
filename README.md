@@ -17,16 +17,18 @@ After obtaining the cart distance in the PulseController module, the [PIDControl
 ### StepperController
 Whenever a new ramp angle is computed, it is passed to the [StepperController](https://github.com/AlexDom513/autoDistance/blob/main/fpga-source/source/StepperController.vhd) module. This module translates the value into physical movement by the stepper motor attached to the ramp. Two state machines are used to implement this functionality (Stepper State Machine & Pulse State Machine). The Stepper State Machine has a counter that is used to track the position of the stepper motor. The counter is set to 0 during startup. We then monitor whether the output from PIDController is greater than or less than the current value of the counter. Depending on the condition, we will either have the stepper motor increment or decrement from its current position. A signal that controls the motor's direction is set low/high and the Pulse State Machine is used to send trigger pulses to a [A4988](https://components101.com/modules/a4988-stepper-motor-driver-module) motor controller. The stepper motor finally increments or decrements in the desired direction.
 
-## Schematics
+## Circuit Schematics
+Note: toggled controlled signals (via switches) are NOT shown
+
 ### Sensor Circuit
 Converts the +3.3V Trig_Pulse signal to +5V logic. Signal is connected to ultrasonic sensor (HC-SR04). The sensor outputs a +5V signal which is converted back to +3.3V before being passed to the FPGA.
 
-<img src="media/sensor_circuit.png" width="800" height="400">
+<img src="media/sensor_circuit.png" width="400" height="200">
 
 ### Stepper Circuit
 Connects control signals (Step_Pulse, Dir_Sel) from the FPGA to the stepper control board (A4988). Since the design is using 1/8 microstepping, MS1 and MS2 are also tied to +5V.
 
-<img src="media/stepper_circuit.png" width="850" height="400">
+<img src="media/stepper_circuit.png" width="440" height="200">
 
 ## CAD
 This was my first serious attempt at creating a 3D model! All parts were printed using PLA on a PRUSA MK3.
