@@ -28,7 +28,7 @@ Converts the +3.3V Trig_Pulse signal to +5V logic. Signal is connected to ultras
 ### Stepper Circuit
 Connects control signals (Step_Pulse, Dir_Sel) from the FPGA to the stepper control board (A4988). Since the design is using 1/8 microstepping, MS1 and MS2 are also tied to +5V.
 
-<img src="media/stepper_circuit.png" width="480" height="200">
+<img src="media/stepper_circuit.png" width="490" height="200">
 
 ## CAD
 This was my first serious attempt at creating a 3D model! All parts were printed using PLA on a PRUSA MK3.
