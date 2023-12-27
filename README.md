@@ -7,7 +7,6 @@ Before starting to implement the PID controller in hardware, a [Python script](h
 A simulation then shows how the cart position is affected by the changing angle of a ramp:
 <img src="media/sim.png" width="534" height="400">
 
-
 ## FPGA Modules
 ### PulseController
 The [PulseController](https://github.com/AlexDom513/autoDistance/blob/main/fpga-source/source/PulseController.vhd) module is responsible for interacting with the ultrasonic sensor. According to the [datasheet](https://github.com/AlexDom513/autoDistance/blob/main/datasheets/HCSR04.pdf), the FPGA must send a 10 microsecond trigger pulse. The sensor the sends eight 40 kHz pulses and detects whether there is a returned pulse. If there is a returned pulse, the time of high output from the sensor is proportional to the distance detected.
@@ -18,6 +17,12 @@ After obtaining the cart distance in the PulseController module, the [PIDControl
 ### StepperController
 Whenever a new ramp angle is computed, it is passed to the [StepperController](https://github.com/AlexDom513/autoDistance/blob/main/fpga-source/source/StepperController.vhd) module. This module translates the value into physical movement by the stepper motor attached to the ramp. Two state machines are used to implement this functionality (Stepper State Machine & Pulse State Machine). The Stepper State Machine has a counter that is used to track the position of the stepper motor. The counter is set to 0 during startup. We then monitor whether the output from PIDController is greater than or less than the current value of the counter. Depending on the condition, we will either have the stepper motor increment or decrement from its current position. A signal that controls the motor's direction is set low/high and the Pulse State Machine is used to send trigger pulses to a [A4988](https://components101.com/modules/a4988-stepper-motor-driver-module) motor controller. The stepper motor finally increments or decrements in the desired direction.
 
+## Schematics
+### Sensor Circuit
+<img src="media/sensor_circuit.png" width="360" height="200">
+
+### Stepper Circuit
+<img src="media/stepper_circuit.png" width="360" height="200">
 
 ## CAD
 This was my first serious attempt at creating a 3D model! All parts were printed using PLA on a PRUSA MK3.
