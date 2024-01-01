@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Sun Dec 10 02:11:37 2023
+[*] Mon Jan 01 20:05:29 2024
 [*]
-[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PidController.ghw"
-[dumpfile_mtime] "Sun Dec 10 02:10:51 2023"
-[dumpfile_size] 14099888
-[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-dev\simulation\PidController.gtkw"
+[dumpfile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\simulation\PidController.ghw"
+[dumpfile_mtime] "Mon Jan 01 19:42:41 2024"
+[dumpfile_size] 14052678
+[savefile] "C:\Users\Admin\Desktop\Engineering\Projects\autoDistance\autoDistance\fpga-source\simulation\PidController.gtkw"
 [timestart] 0
 [size] 2560 1369
 [pos] -1 -1
-*-39.594105 763000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-36.989166 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.pidcontroller_tb.
 [treeopen] top.pidcontroller_tb.dut.
@@ -49,13 +49,17 @@ top.pidcontroller_tb.scurr_dist_valid
 [color] 1
 [fpshift_count] 12
 #{top.pidcontroller_tb.dut.sdist_error_d1[18:0]} top.pidcontroller_tb.dut.sdist_error_d1[18] top.pidcontroller_tb.dut.sdist_error_d1[17] top.pidcontroller_tb.dut.sdist_error_d1[16] top.pidcontroller_tb.dut.sdist_error_d1[15] top.pidcontroller_tb.dut.sdist_error_d1[14] top.pidcontroller_tb.dut.sdist_error_d1[13] top.pidcontroller_tb.dut.sdist_error_d1[12] top.pidcontroller_tb.dut.sdist_error_d1[11] top.pidcontroller_tb.dut.sdist_error_d1[10] top.pidcontroller_tb.dut.sdist_error_d1[9] top.pidcontroller_tb.dut.sdist_error_d1[8] top.pidcontroller_tb.dut.sdist_error_d1[7] top.pidcontroller_tb.dut.sdist_error_d1[6] top.pidcontroller_tb.dut.sdist_error_d1[5] top.pidcontroller_tb.dut.sdist_error_d1[4] top.pidcontroller_tb.dut.sdist_error_d1[3] top.pidcontroller_tb.dut.sdist_error_d1[2] top.pidcontroller_tb.dut.sdist_error_d1[1] top.pidcontroller_tb.dut.sdist_error_d1[0]
+@40008420
+[color] 1
+[fpshift_count] 12
+#{top.pidcontroller_tb.dut.sdist_error_sum[18:0]} top.pidcontroller_tb.dut.sdist_error_sum[18] top.pidcontroller_tb.dut.sdist_error_sum[17] top.pidcontroller_tb.dut.sdist_error_sum[16] top.pidcontroller_tb.dut.sdist_error_sum[15] top.pidcontroller_tb.dut.sdist_error_sum[14] top.pidcontroller_tb.dut.sdist_error_sum[13] top.pidcontroller_tb.dut.sdist_error_sum[12] top.pidcontroller_tb.dut.sdist_error_sum[11] top.pidcontroller_tb.dut.sdist_error_sum[10] top.pidcontroller_tb.dut.sdist_error_sum[9] top.pidcontroller_tb.dut.sdist_error_sum[8] top.pidcontroller_tb.dut.sdist_error_sum[7] top.pidcontroller_tb.dut.sdist_error_sum[6] top.pidcontroller_tb.dut.sdist_error_sum[5] top.pidcontroller_tb.dut.sdist_error_sum[4] top.pidcontroller_tb.dut.sdist_error_sum[3] top.pidcontroller_tb.dut.sdist_error_sum[2] top.pidcontroller_tb.dut.sdist_error_sum[1] top.pidcontroller_tb.dut.sdist_error_sum[0]
 @1000200
 -error
 @200
 -
 @800200
 -gains
-@40c00420
+@40c08420
 [fpshift_count] 20
 #{top.pidcontroller_tb.dut.sp[31:0]} top.pidcontroller_tb.dut.sp[31] top.pidcontroller_tb.dut.sp[30] top.pidcontroller_tb.dut.sp[29] top.pidcontroller_tb.dut.sp[28] top.pidcontroller_tb.dut.sp[27] top.pidcontroller_tb.dut.sp[26] top.pidcontroller_tb.dut.sp[25] top.pidcontroller_tb.dut.sp[24] top.pidcontroller_tb.dut.sp[23] top.pidcontroller_tb.dut.sp[22] top.pidcontroller_tb.dut.sp[21] top.pidcontroller_tb.dut.sp[20] top.pidcontroller_tb.dut.sp[19] top.pidcontroller_tb.dut.sp[18] top.pidcontroller_tb.dut.sp[17] top.pidcontroller_tb.dut.sp[16] top.pidcontroller_tb.dut.sp[15] top.pidcontroller_tb.dut.sp[14] top.pidcontroller_tb.dut.sp[13] top.pidcontroller_tb.dut.sp[12] top.pidcontroller_tb.dut.sp[11] top.pidcontroller_tb.dut.sp[10] top.pidcontroller_tb.dut.sp[9] top.pidcontroller_tb.dut.sp[8] top.pidcontroller_tb.dut.sp[7] top.pidcontroller_tb.dut.sp[6] top.pidcontroller_tb.dut.sp[5] top.pidcontroller_tb.dut.sp[4] top.pidcontroller_tb.dut.sp[3] top.pidcontroller_tb.dut.sp[2] top.pidcontroller_tb.dut.sp[1] top.pidcontroller_tb.dut.sp[0]
 @28
@@ -93,11 +97,11 @@ top.pidcontroller_tb.dut.sp[1]
 top.pidcontroller_tb.dut.sp[0]
 @1401200
 -group_end
-@40000420
+@40008421
 [fpshift_count] 20
 #{top.pidcontroller_tb.dut.si[31:0]} top.pidcontroller_tb.dut.si[31] top.pidcontroller_tb.dut.si[30] top.pidcontroller_tb.dut.si[29] top.pidcontroller_tb.dut.si[28] top.pidcontroller_tb.dut.si[27] top.pidcontroller_tb.dut.si[26] top.pidcontroller_tb.dut.si[25] top.pidcontroller_tb.dut.si[24] top.pidcontroller_tb.dut.si[23] top.pidcontroller_tb.dut.si[22] top.pidcontroller_tb.dut.si[21] top.pidcontroller_tb.dut.si[20] top.pidcontroller_tb.dut.si[19] top.pidcontroller_tb.dut.si[18] top.pidcontroller_tb.dut.si[17] top.pidcontroller_tb.dut.si[16] top.pidcontroller_tb.dut.si[15] top.pidcontroller_tb.dut.si[14] top.pidcontroller_tb.dut.si[13] top.pidcontroller_tb.dut.si[12] top.pidcontroller_tb.dut.si[11] top.pidcontroller_tb.dut.si[10] top.pidcontroller_tb.dut.si[9] top.pidcontroller_tb.dut.si[8] top.pidcontroller_tb.dut.si[7] top.pidcontroller_tb.dut.si[6] top.pidcontroller_tb.dut.si[5] top.pidcontroller_tb.dut.si[4] top.pidcontroller_tb.dut.si[3] top.pidcontroller_tb.dut.si[2] top.pidcontroller_tb.dut.si[1] top.pidcontroller_tb.dut.si[0]
-@40000421
-[fpshift_count] 12
+@40010420
+[fpshift_count] 20
 #{top.pidcontroller_tb.dut.sd[31:0]} top.pidcontroller_tb.dut.sd[31] top.pidcontroller_tb.dut.sd[30] top.pidcontroller_tb.dut.sd[29] top.pidcontroller_tb.dut.sd[28] top.pidcontroller_tb.dut.sd[27] top.pidcontroller_tb.dut.sd[26] top.pidcontroller_tb.dut.sd[25] top.pidcontroller_tb.dut.sd[24] top.pidcontroller_tb.dut.sd[23] top.pidcontroller_tb.dut.sd[22] top.pidcontroller_tb.dut.sd[21] top.pidcontroller_tb.dut.sd[20] top.pidcontroller_tb.dut.sd[19] top.pidcontroller_tb.dut.sd[18] top.pidcontroller_tb.dut.sd[17] top.pidcontroller_tb.dut.sd[16] top.pidcontroller_tb.dut.sd[15] top.pidcontroller_tb.dut.sd[14] top.pidcontroller_tb.dut.sd[13] top.pidcontroller_tb.dut.sd[12] top.pidcontroller_tb.dut.sd[11] top.pidcontroller_tb.dut.sd[10] top.pidcontroller_tb.dut.sd[9] top.pidcontroller_tb.dut.sd[8] top.pidcontroller_tb.dut.sd[7] top.pidcontroller_tb.dut.sd[6] top.pidcontroller_tb.dut.sd[5] top.pidcontroller_tb.dut.sd[4] top.pidcontroller_tb.dut.sd[3] top.pidcontroller_tb.dut.sd[2] top.pidcontroller_tb.dut.sd[1] top.pidcontroller_tb.dut.sd[0]
 @1000200
 -gains

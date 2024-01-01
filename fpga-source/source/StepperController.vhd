@@ -29,9 +29,9 @@ architecture Behavioral of StepperController is
   type tStepper_State      is (SETUP, INCR, DECR, PAUSE);
   type tPulse_State        is (IDLE, TRIG_H, TRIG_L, DONE);
 
-  -- constants defining motor step time (2 ms -> 500 Hz)
-  constant cMax_Pulse_HIGH            : unsigned(29 downto 0) := to_unsigned(125000, 30); -- 1 ms HIGH
-  constant cMax_Pulse_LOW             : unsigned(29 downto 0) := to_unsigned(250000, 30); -- 1 ms LOW
+  -- constants defining motor step time (1 ms -> 1000 Hz)
+  constant cMax_Pulse_HIGH            : unsigned(29 downto 0) := to_unsigned(62500, 30);  -- 0.5 ms HIGH
+  constant cMax_Pulse_LOW             : unsigned(29 downto 0) := to_unsigned(125000, 30); -- 0.5 ms LOW
 
   -- control
   signal sPulse_Trig                  : std_logic;

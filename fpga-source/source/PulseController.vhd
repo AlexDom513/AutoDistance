@@ -20,8 +20,8 @@ entity PulseController is
   generic (
     gTrig_Count           : natural := 1500;                              -- > 10 us trigger pulse
     gRecv_Count           : natural := 125;                               -- 1 us receive resolution
-    gWait_Count           : natural := 125000;                            -- 1 ms retransmit window
-    gPause_Count          : natural := 125000  --7500000 (60 ms)          -- 1 ms pause
+    gWait_Count           : natural := 7500000;                           -- 60 ms retransmit window
+    gPause_Count          : natural := 7500000                            -- 60 ms pause
   );
   port (
     Clk                   : in  std_logic;                                -- input clock
@@ -69,16 +69,18 @@ begin
   -- Only need 6 actual integer bits because maximum track length is 50 cm, include an additional sign bit
   -- Smooths the computed distance format
   sCurr_Dist_Pre <= signed('0' & sCurr_Dist(17 downto 0));
+  Curr_Dist_Valid <= sCurr_Dist_Valid;
+  Curr_Dist <= sCurr_Dist_Pre;
 
-  SMA: entity work.MovingAvg
-  port map(
-    Clk             => Clk,
-    Rst             => Rst,
-    Data_In_Valid   => sCurr_Dist_Valid,
-    Data_In         => sCurr_Dist_Pre,
-    Data_Out_Valid  => Curr_Dist_Valid,
-    Data_Out        => Curr_Dist
-  );
+  -- SMA: entity work.MovingAvg
+  -- port map(
+  --   Clk             => Clk,
+  --   Rst             => Rst,
+  --   Data_In_Valid   => sCurr_Dist_Valid,
+  --   Data_In         => sCurr_Dist_Pre,
+  --   Data_Out_Valid  => Curr_Dist_Valid,
+  --   Data_Out        => Curr_Dist
+  -- );
 
   ----------------------------------------------------------------------
   -- LED Output

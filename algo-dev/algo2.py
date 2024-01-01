@@ -30,7 +30,7 @@ G = -9.81                       #gravity, m/s
 
 #gains
 KP = 2
-KI = 0.05
+KI = 0.5
 KD = 1.8
 
 #represents physics of a cart on a ramp, one of the sides of the ramp is fixed,

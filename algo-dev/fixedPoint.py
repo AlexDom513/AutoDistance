@@ -16,7 +16,7 @@ from fixedpoint import FixedPoint
 # 	return decimal_fraction
 
 #convert decimal to fixed point binary
-Q1 = FixedPoint(.05, signed=False, m=0, n=12, overflow_alert='error', str_base=2)
+Q1 = FixedPoint(50, signed=False, m=7, n=12, overflow_alert='error', str_base=2)
 print(Q1.qformat)
 print(str(Q1))
 print('\n')
