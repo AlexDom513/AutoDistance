@@ -1,6 +1,6 @@
 # autoDistance
 The goal of this project is to implement a simple [PID controller](https://en.wikipedia.org/wiki/Proportional%E2%80%93integral%E2%80%93derivative_controller) using a FPGA. [(1)](https://www.youtube.com/watch?v=JFTJ2SS4xyA) and [(2)](https://www.youtube.com/watch?v=oy58S4beC9c) served as the inspiration for this project. Note that a FPGA is being used as an exercise. It is much more convenient to use a microcontroller for this application.
-<img src="media/base.png" width="534" height="400">
+<img src="media/base.jpg" width="534" height="400">
 
 ## PID Algorithm
 Before starting to implement the PID controller in hardware, a [Python script](https://github.com/AlexDom513/autoDistance/blob/main/algo-dev/algo2.py) was used to understand the algorithm and the system it would be used in. The script was set up in such a way that the user can specify variables like the set-point, the PID gains, and the cart mass.
